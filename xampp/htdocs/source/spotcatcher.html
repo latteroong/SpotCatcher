@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
     <head>
@@ -11,10 +10,99 @@
         <div class="header">
             <p>SpotCatcher</p>
         </div>
+        <form id="locationForm" action="submit_form.php" method="post">
+            <div id="locations">
+                <div class="location">
+                    <p>위치 1 입력</p>
+                    <input type="text" name="location[]">
+                    <button type="button" class="removeLocationBtn">삭제</button>
+                </div>
+            </div>
+            <button type="button" id="addLocationBtn">위치 추가</button>
+            <button type="submit">제출</button>
+        </form>
         <div id="map" style="width:100%;height:350px;"></div>
+    </body>
+    <script>
+        // 삭제 버튼 상태를 업데이트하는 함수
+        function updateRemoveButtons() {
+            const removeButtons = document.querySelectorAll('.removeLocationBtn');
+            if (removeButtons.length === 1) {
+                removeButtons[0].disabled = true;
+            } else {
+                removeButtons.forEach(button => button.disabled = false);
+            }
+        }
 
-        <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
-        <script>
+        document.getElementById('addLocationBtn').addEventListener('click', function() {
+            const newLocationDiv = document.createElement('div');
+            newLocationDiv.className = 'location';
+
+            const locationCount = document.querySelectorAll('.location').length + 1;
+
+            newLocationDiv.innerHTML = `
+                <p>위치 ${locationCount} 입력</p>
+                <input type="text" name="location[]">
+                <button type="button" class="removeLocationBtn">삭제</button>
+            `;
+
+            document.getElementById('locations').appendChild(newLocationDiv);
+
+            // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가합니다.
+            newLocationDiv.querySelector('.removeLocationBtn').addEventListener('click', function() {
+                newLocationDiv.remove();
+                updateLocationLabels();
+                updateRemoveButtons();
+            });
+
+            updateLocationLabels();
+            updateRemoveButtons();
+        });
+
+        // 기존의 삭제 버튼에 이벤트 리스너를 추가합니다.
+        document.querySelectorAll('.removeLocationBtn').forEach(function(button) {
+            button.addEventListener('click', function() {
+                button.parentElement.remove();
+                updateLocationLabels();
+                updateRemoveButtons();
+            });
+        });
+
+        // 위치 라벨을 업데이트하는 함수
+        function updateLocationLabels() {
+            document.querySelectorAll('.location').forEach(function(locationDiv, index) {
+                locationDiv.querySelector('p').textContent = `위치 ${index + 1} 입력`;
+            });
+        }
+
+        // 폼 검증 함수
+        function validateForm(event) {
+            const locationInputs = document.querySelectorAll('input[name="location[]"]');
+            let isValid = true;
+
+            locationInputs.forEach(function(input) {
+                if (input.value.trim() === '') {
+                    isValid = false;
+                    input.style.borderColor = 'red';
+                } else {
+                    input.style.borderColor = '';
+                }
+            });
+
+            if (!isValid) {
+                alert('모든 위치 입력 필드를 채워주세요.');
+                event.preventDefault();
+            }
+        }
+
+        // 폼 제출 이벤트에 검증 함수를 연결합니다.
+        document.getElementById('locationForm').addEventListener('submit', validateForm);
+
+        updateRemoveButtons();
+    </script>
+    
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
+    <script>
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
             mapOption = { 
                 center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
@@ -72,6 +160,5 @@
             // 지도 중심좌표를 접속위치로 변경합니다
             map.setCenter(locPosition);      
         }    
-        </script>
-    </body>
+    </script>
 </html>
