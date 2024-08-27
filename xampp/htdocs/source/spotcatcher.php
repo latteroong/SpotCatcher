@@ -44,6 +44,7 @@
                 var options;
 
                 var bounds = new kakao.maps.LatLngBounds();
+                var setRadius = 1000;
 
                 // 장소 검색 객체를 생성합니다
                 var ps = new kakao.maps.services.Places(); 
@@ -99,6 +100,20 @@
                     });
                 }
 
+                // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+                function placesSearchCB (data, status, pagination) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        for (var i=0; i<data.length; i++) {
+                            displayMarker(data[i]);
+                            console.log("우어우어" + data[i]);
+                        }
+                    } else {
+                        console.log("다시 서치");
+                        setRadius = 5000;
+                        setMarker();
+                    }
+                }
+
                 async function setMarker(){
                     setTimeout(() => gatMinMax(coordinates), 2000);
                     setTimeout(() => {
@@ -113,25 +128,13 @@
                         });
                         options = {
                             location: coords,
-                            radius: 1000,
+                            radius: setRadius,
                         };
                         setBounds();
                     }, 3000);
 
                     // 키워드로 장소를 검색합니다
                     setTimeout(() => ps.keywordSearch('<?=$keyword?>', placesSearchCB, options), 3100);
-
-                    
-
-                    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
-                    function placesSearchCB (data, status, pagination) {
-                        if (status === kakao.maps.services.Status.OK) {
-                            for (var i=0; i<data.length; i++) {
-                                displayMarker(data[i]);
-                                console.log("우어우어" + data[i]);
-                            }
-                        } 
-                    }
                 }
 
                 for (let i = 0; i < <?=count($locations)?>; i++) {
