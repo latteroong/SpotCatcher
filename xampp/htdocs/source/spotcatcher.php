@@ -45,6 +45,7 @@
 
                 var bounds = new kakao.maps.LatLngBounds();
                 var setRadius = 1000;
+                var research = 0;
 
                 // 장소 검색 객체를 생성합니다
                 var ps = new kakao.maps.services.Places(); 
@@ -107,65 +108,81 @@
                             displayMarker(data[i]);
                             console.log("우어우어" + data[i]);
                         }
-                    } else {
+                    } else if (research < 4){
+                        research += 1;
                         console.log("다시 서치");
-                        setRadius = 5000;
+                        setRadius += 2000;
                         setMarker();
+                    } else {
+                        // 검색결과가 없습니다.
+                        alert("키워드 <?=$keyword?> 검색결과가 없습니다.");
+                        history.back();  
                     }
                 }
 
-                async function setMarker(){
-                    setTimeout(() => gatMinMax(coordinates), 2000);
-                    setTimeout(() => {
-                        var center_x = parseFloat(x_min) + ((parseFloat(x_max) - parseFloat(x_min)) / 2);
-                        var center_y = parseFloat(y_min) + ((parseFloat(y_max) - parseFloat(y_min)) / 2);
-                        console.log(center_x,'oo', center_y);
-                        coords = new kakao.maps.LatLng(center_x, center_y);
-                        
-                        var marker = new kakao.maps.Marker({
-                            map: map,
-                            position: coords
-                        });
-                        options = {
-                            location: coords,
-                            radius: setRadius,
-                        };
-                        setBounds();
-                    }, 3000);
-
-                    // 키워드로 장소를 검색합니다
-                    setTimeout(() => ps.keywordSearch('<?=$keyword?>', placesSearchCB, options), 3100);
+                function getCenter() {
+                    var center_x = parseFloat(x_min) + ((parseFloat(x_max) - parseFloat(x_min)) / 2);
+                    var center_y = parseFloat(y_min) + ((parseFloat(y_max) - parseFloat(y_min)) / 2);
+                    console.log(center_x,'oo', center_y);
+                    coords = new kakao.maps.LatLng(center_x, center_y);
+                    
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+                    options = {
+                        location: coords,
+                        radius: setRadius,
+                    };
+                    setBounds();
                 }
 
-                for (let i = 0; i < <?=count($locations)?>; i++) {
+                async function setMarker(){
+                    await searchLoc();
+                    // setTimeout(() => gatMinMax(coordinates), 2000);
+                    await gatMinMax(coordinates);
+                    // setTimeout(() => getCenter(), 3000);
+                    await getCenter();
 
-                    document.write("위치 " + (i+1) + ": " + <?=json_encode($locations)?>[i] + "<br>");
-                    // 주소-좌표 변환 객체를 생성합니다
-                    var geocoder = new kakao.maps.services.Geocoder();
-                    // 주소로 좌표를 검색합니다
-                    geocoder.addressSearch(<?=json_encode($locations)?>[i], function(result, status) {
+                    // 키워드로 장소를 검색합니다
+                    // setTimeout(() => ps.keywordSearch('<?=$keyword?>', placesSearchCB, options), 3100);
+                    await ps.keywordSearch('<?=$keyword?>', placesSearchCB, options);
+                }
 
-                        // 정상적으로 검색이 완료됐으면 
-                        if (status === kakao.maps.services.Status.OK) {
+                function searchLoc() {
+                    for (let i = 0; i < <?=count($locations)?>; i++) {
+                        document.write("위치 " + (i+1) + ": " + <?=json_encode($locations)?>[i] + "<br>");
+                        // 주소-좌표 변환 객체를 생성합니다
+                        var geocoder = new kakao.maps.services.Geocoder();
+                        // 주소로 좌표를 검색합니다
+                        geocoder.addressSearch(<?=json_encode($locations)?>[i], function(result, status) {
 
-                            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                            coordinates.push([result[0].y, result[0].x]);
-                            
-                            // 결과값으로 받은 위치를 마커로 표시합니다
-                            var marker = new kakao.maps.Marker({
-                                map: map,
-                                position: coords
-                            });
+                            // 정상적으로 검색이 완료됐으면 
+                            if (status === kakao.maps.services.Status.OK) {
 
-                            bounds.extend(coords);
+                                var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                                coordinates.push([result[0].y, result[0].x]);
+                                
+                                // 결과값으로 받은 위치를 마커로 표시합니다
+                                var marker = new kakao.maps.Marker({
+                                    map: map,
+                                    position: coords
+                                });
 
-                            // 인포윈도우로 장소에 대한 설명을 표시합니다
-                            var infowindow = new kakao.maps.InfoWindow({
-                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + (i+1) + '</div>'
-                            });
-                            infowindow.open(map, marker);
-                        }
-                    });
+                                bounds.extend(coords);
+
+                                // 인포윈도우로 장소에 대한 설명을 표시합니다
+                                var infowindow = new kakao.maps.InfoWindow({
+                                    content: '<div style="width:150px;text-align:center;padding:6px 0;">' + (i+1) + '</div>'
+                                });
+                                infowindow.open(map, marker);
+                            } else {
+                                // 검색결과가 없습니다.
+                                alert((i+1) + "번째 주소 검색결과가 없습니다.");
+                                history.back();                            
+                            }
+                        });
+                    }
                 }
                 
                 setMarker();
