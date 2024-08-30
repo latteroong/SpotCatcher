@@ -17,7 +17,7 @@
                     <p>SpotCatcher</p>
                 </div>
                 <div class="map_wrap">
-                    <div id="map" style="position:relative;"></div>
+                    <div id="map"></div>
                     <div id="menu_wrap" class="bg_white">
                         <div class="option">
                             <div>
@@ -62,7 +62,7 @@
                 var options;
 
                 var bounds = new kakao.maps.LatLngBounds();
-                var setRadius = 1000;
+                var setRadius = 100;
                 var research = 0;
 
                 // 마커를 담을 배열입니다
@@ -153,7 +153,8 @@
                             });
 
                             itemEl.onmouseover =  function () {
-                                displayInfowindow(marker, place);
+                                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                                infowindow.open(map, marker);
                             };
 
                             itemEl.onmouseout =  function () {
@@ -258,14 +259,18 @@
 
                 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
                 function placesSearchCB (data, status, pagination) {
-                    if (status === kakao.maps.services.Status.OK) {
+                    if (status === kakao.maps.services.Status.OK && data.length >= 3) {
                         displayMarker(data);
                         displayPagination(pagination);
                     } else if (research < 4){
                         research += 1;
                         console.log("다시 서치");
-                        setRadius += 2000;
-                        setMarker();
+                        setRadius += 500;
+                        options = {
+                            location: coords,
+                            radius: setRadius,
+                        };
+                        ps.keywordSearch('<?=$keyword?>', placesSearchCB, options);
                     } else {
                         // 검색결과가 없습니다.
                         alert("키워드 <?=$keyword?> 검색결과가 없습니다.");
@@ -359,6 +364,18 @@
                 }
                 
                 setMarker();
+
+                let box_observer = new ResizeObserver(entries => {
+                    for (let entry of entries) {
+                    // 감시 대상의 크기가 변화했을 때 실행할 코드
+                    console.log('사이즈 변했음!');
+                    map.setBounds(bounds);
+                    }
+                });
+
+                const box = document.querySelector('#map');
+
+box_observer.observe(box);
             </script>
     <?php
         } else {
@@ -387,7 +404,7 @@
                     <button type="button" id="addLocationBtn">위치 추가</button>
                     <button type="submit">제출</button>
                 </form>
-                <div id="map" style="width:100%;height:350px;"></div>
+                <div id="map"></div>
             </body>
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>

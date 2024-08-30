@@ -1,3 +1,5 @@
+var locPosition = new kakao.maps.LatLng(0.0, 0.0);
+
 function daumPostcode(num) {
     new daum.Postcode({
         oncomplete: function(data) {
@@ -123,7 +125,7 @@ if (navigator.geolocation) {
         var lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
         
-        var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+        locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
             message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
         
         // 마커와 인포윈도우를 표시합니다
@@ -163,3 +165,16 @@ function displayMarker(locPosition, message) {
     // 지도 중심좌표를 접속위치로 변경합니다
     map.setCenter(locPosition);      
 }
+
+let box_observer = new ResizeObserver(entries => {
+    for (let entry of entries) {
+      // 감시 대상의 크기가 변화했을 때 실행할 코드
+      console.log('사이즈 변했음!');
+      map.setCenter(locPosition); 
+    }
+  });
+
+const box = document.querySelector('#map');
+
+box_observer.observe(box);
+
