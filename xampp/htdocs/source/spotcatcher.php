@@ -64,6 +64,7 @@
                 var bounds = new kakao.maps.LatLngBounds();
                 var setRadius = 100;
                 var research = 0;
+                var keyword = "";
 
                 // 마커를 담을 배열입니다
                 var markers = [];
@@ -110,7 +111,7 @@
 
                 function searchPlaces() {
 
-                    var keyword = document.getElementById('keyword').value;
+                    keyword = document.getElementById('keyword').value;
 
                     if (!keyword.replace(/^\s+|\s+$/g, '')) {
                         alert('키워드를 입력해주세요!');
@@ -262,6 +263,7 @@
                     if (status === kakao.maps.services.Status.OK && data.length >= 3) {
                         displayMarker(data);
                         displayPagination(pagination);
+                        research = 0;
                     } else if (research < 4){
                         research += 1;
                         console.log("다시 서치");
@@ -274,15 +276,25 @@
                     } else {
                         // 검색결과가 없습니다.
                         alert("키워드 <?=$keyword?> 검색결과가 없습니다.");
-                        history.back();  
+                        research = 0;
+                        history.back();
                     }
                 }
 
                 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
                 function placesSearchCBbutton (data, status, pagination) {
-                    if (status === kakao.maps.services.Status.OK) {
+                    if (status === kakao.maps.services.Status.OK && data.length >= 3) {
                         displayMarker(data);
                         displayPagination(pagination);
+                    } else if (research < 4){
+                        research += 1;
+                        console.log("다시 서치");
+                        setRadius += 500;
+                        options = {
+                            location: coords,
+                            radius: setRadius,
+                        };
+                        ps.keywordSearch(keyword, placesSearchCB, options);
                     } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
                         alert('검색 결과가 존재하지 않습니다.');
                         return;
