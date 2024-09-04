@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SpotCatcher</title>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="mainStyle.css"/>
     </head>
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,6 +12,7 @@
             $keyword = $_POST['keyword'];
             $locations = json_encode($locations);
     ?>
+            <link rel="stylesheet" href="resultStyle.css"/>
             <script>
                 var locations = <?=$locations?>;
                 var keyword = '<?=$keyword?>';
@@ -46,6 +47,7 @@
     <?php
         } else {
     ?>
+            <link rel="stylesheet" href="searchStyle.css"/>
             <body>
                 <div class="header">
                     <p>SpotCatcher</p>
