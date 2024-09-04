@@ -27,12 +27,27 @@
                     keyword: keyword
                 };
             </script>
+            <link rel="stylesheet" href="resultStyle.css">
             <body>
-                <header>
-                    <a href = "spotcatcher.php">
-                        <p>SpotCatcher</p>
-                    </a>
-                </header>
+                <div class="header" href="spotcatcher.php">
+                    <p>SpotCatcher</p>
+                </div>
+                <div class="introduce" style="height: 600px;">
+                    <div class="Intro_explain_1" style="margin : 10px;">
+                        <h4>
+                        원하는 장소,원하는 거리 비율로<br>
+                        장소를 추천해드립니다
+                        </h4>
+                        <p>현재 위치와 원하는 인원 수를 입력<br>해 주세요.</p>
+                    </div>
+                    <div class="Intro_explain_2" style="margin : 10px;">
+                    <h4> Spot Catcher로<br>
+                        약속 장소를 정해 보세요</h4>
+                        <form id="goDown">
+                            <button type="button"><img src="arrow_down.png" href="#keyword"></button>
+                        </form>
+                    </div>
+                </div>
                 <div class="map_wrap">
                     <div id="map"></div>
                     <div id="menu_wrap" class="bg_white">
@@ -57,31 +72,13 @@
     ?>
             <link rel="stylesheet" href="searchStyle.css"/>
             <body>
-                <header>
-                    <a href = "spotcatcher.php">
-                        <p>SpotCatcher</p>
-                    </a>
-                </header>
-                <div class="introduce">
-                    <div class="Intro_explain_1" style="margin : 10px;">
-                        <h4>
-                        원하는 장소,원하는 거리 비율로<br>
-                        장소를 추천해드립니다
-                        </h4>
-                        <p>현재 위치와 원하는 인원 수를 입력해 <br>주세요.</p>
-                    </div>
-                    <div class="Intro_explain_2" style="margin : 10px;">
-                    <h4> Spot Catcher로<br>
-                        약속 장소를 정해 보세요</h4>
-                        <form id="goDown">
-                            <button type="button"><img src='img/arrow_down.png' href="#keyword" style="border : none; width : 50px; height : 50px; "></button>
-                        </form>
-                    </div>
+                <div class="header">
+                    <p>SpotCatcher</p>
                 </div>
                 <form id="locationForm" action="spotcatcher.php" method="post">
-                    <div class="inputKeyWord">
+                    <div>
                         <p>키워드 입력</p>
-                        <input type="text" name="keyword" placeholder = "키워드를 입력해주세요.">
+                        <input type="text" name="keyword">
                     </div>
                     <div id="locations">
                         <div class="location">
@@ -95,17 +92,8 @@
                             <button type="button" class="removeLocationBtn">삭제</button>
                         </div>
                     </div>
-                    <table>
-                        <tr>
-                            <td>
-                                <button type="button" id="addLocationBtn">위치 추가</button>
-                            </td>
-                            <td>
-                                <button type="submit">제출</button>
-                            </td>
-                            
-                        </tr>
-                    </table>
+                    <button type="button" id="addLocationBtn">위치 추가</button>
+                    <button type="submit">제출</button>
                 </form>
                 <div id="map"></div>
             </body>
