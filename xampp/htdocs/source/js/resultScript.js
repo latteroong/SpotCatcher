@@ -335,16 +335,25 @@ function placesSearchCBbutton (data, status, pagination) {
 
 function getCenter() {
     console.log("getCenter 시작");
+    // var center_x = parseFloat(x_min) + ((parseFloat(x_max) - parseFloat(x_min)) / 2);
+    // var center_y = parseFloat(y_min) + ((parseFloat(y_max) - parseFloat(y_min)) / 2);
+    // console.log(center_x,'oo', center_y);
+    // coords = new kakao.maps.LatLng(center_x, center_y);
     const avgPointResult = getAvgPoint(data);
     center_x = avgPointResult.x;
     center_y = avgPointResult.y;
     coords = new kakao.maps.LatLng(center_x, center_y);
     console.log("coords", coords);
 
+    // var marker = new kakao.maps.Marker({
+    //     map: map,
+    //     position: coords
+    // });
     options = {
         location: coords,
         radius: setRadius,
     };
+    // infowindow.open(map, marker);
     setBounds();
     console.log("끝");
     }
@@ -369,8 +378,10 @@ async function searchLoc() {
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
                 if (weight[i] == 0) {
                     data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), 1));
+                    console.log("0 입니다.");
                 } else {
-                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), parseInt(weight[i])*10));
+                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), parseInt(weight[i])));
+                    console.log(weight, "0 이 아닙니다.", i);
                 }
                 
                 console.log(data);
