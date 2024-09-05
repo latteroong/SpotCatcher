@@ -6,6 +6,67 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         console.log('Locations:', locations); // ["서울", "부산", "대구"]
         console.log('Keyword:', keyword);     // 예제 키워드
+
+        // 위치 목록을 담을 컨테이너 div를 생성
+        const containerDiv = document.createElement('div');
+        containerDiv.className = 'input-container';
+
+        // locations 배열을 순회하며 인풋 박스와 버튼 추가
+        locations.forEach((location, index) => {
+            // 새로운 div 요소 생성
+            const locationDiv = document.createElement('div');
+            locationDiv.className = 'weightValues';
+            
+            // 주소 텍스트 생성
+            const addressLabel = document.createElement('span');
+            addressLabel.textContent = index+1;
+            addressLabel.className = 'address-label';
+
+            // 새로운 인풋 박스 생성
+            const inputBox = document.createElement('input');
+            inputBox.type = 'number';
+            inputBox.value = 1; // 초기 값으로 1 설정
+            inputBox.id = `weight${index}`;
+            inputBox.name = `inputWeight[]`;
+            inputBox.min = 1;  // 최소값 설정
+            inputBox.max = 10; // 최대값 설정
+            inputBox.step = 1; // 단계 설정
+
+            // 주소 텍스트와 인풋 박스를 div에 추가
+            locationDiv.appendChild(addressLabel);
+            locationDiv.appendChild(inputBox);
+
+            // 컨테이너 div에 추가
+            containerDiv.appendChild(locationDiv);
+        });
+        // 제출 버튼 생성
+        const submitButton = document.createElement('button');
+        submitButton.type = 'button';
+        submitButton.textContent = '제출';
+        submitButton.className = 'submit-button';
+        submitButton.onclick = async function() {
+            console.log("버튼클릭");
+            const inputBoxValue = document.querySelectorAll('input[name="inputWeight[]"]');
+            
+            await inputBoxValue.forEach((boxvalue, index) => {
+                weight = weight.with(index, parseInt(boxvalue.value));
+                console.log(index, boxvalue.value);
+            });
+            await console.log(weight);
+            // 배열 2개 초기화
+            data.length = 0;
+            await timer(500);
+            await setMarker();
+        };   
+
+        // 기존의 #map_wrap div에 새로 생성한 컨테이너를 추가
+        const mapWrap = document.querySelector('.map_wrap');
+        if (mapWrap) {
+            mapWrap.appendChild(containerDiv);
+            mapWrap.appendChild(submitButton);
+        } else {
+            console.log('map_wrap element not found');
+        }
     } else {
         console.log('PHP data not available');
     }
@@ -27,19 +88,20 @@ var infowindow = new kakao.maps.InfoWindow({zIndex:1});
 var coordinates = []; 
 var coords = new kakao.maps.LatLng(0.0, 0.0);
 
-var coo_x = [];
-var coo_y = [];
+// var coo_x = [];
+// var coo_y = [];
 
-var x_min = 0;
-var x_max = 0;
-var y_min = 0;
-var y_max = 0;
+// var x_min = 0;
+// var x_max = 0;
+// var y_min = 0;
+// var y_max = 0;
 
 var options;
 
 var bounds = new kakao.maps.LatLngBounds();
 var setRadius = 100;
 var research = 0;
+var weight = [0,0,0,0,0,0,0,0];
 
 // 마커를 담을 배열입니다
 var markers = [];
@@ -47,36 +109,38 @@ var markers = [];
 // 장소 검색 객체를 생성합니다
 var ps = new kakao.maps.services.Places(); 
 
-function gatMinMax(coordinates){
-    console.log("gatMinMax 시작");
-    console.log(coordinates);
-    coordinates.forEach(function(coordinate) {
-        coo_x.push(coordinate[0]);
-        coo_y.push(coordinate[1]);
-    });
-    x_min = coo_x[0];
-    x_max = coo_x[0];
-    y_min = coo_y[0];
-    y_max = coo_y[0];
-    coo_x.forEach(function(x) {
-        if (x_max < x) {
-            x_max = x;
-        }
-        if (x_min > x) {
-            x_min = x;
-        }
-    });
-    coo_y.forEach(function(y) {
-        if (y_max < y) {
-            y_max = y;
-        }
-        if (y_min > y) {
-            y_min = y;
-        }
-    });
-    console.log(x_min, ',', x_max);
-    console.log("gatMinMax 끝");
-}
+// 주소-좌표 변환 객체를 생성합니다
+var geocoder = new kakao.maps.services.Geocoder();
+// function gatMinMax(coordinates){
+//     console.log("gatMinMax 시작");
+//     console.log(coordinates);
+//     coordinates.forEach(function(coordinate) {
+//         coo_x.push(coordinate[0]);
+//         coo_y.push(coordinate[1]);
+//     });
+//     x_min = coo_x[0];
+//     x_max = coo_x[0];
+//     y_min = coo_y[0];
+//     y_max = coo_y[0];
+//     coo_x.forEach(function(x) {
+//         if (x_max < x) {
+//             x_max = x;
+//         }
+//         if (x_min > x) {
+//             x_min = x;
+//         }
+//     });
+//     coo_y.forEach(function(y) {
+//         if (y_max < y) {
+//             y_max = y;
+//         }
+//         if (y_min > y) {
+//             y_min = y;
+//         }
+//     });
+//     console.log(x_min, ',', x_max);
+//     console.log("gatMinMax 끝");
+// }
 
 function setBounds() {
     // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
@@ -271,11 +335,16 @@ function placesSearchCBbutton (data, status, pagination) {
 
 function getCenter() {
     console.log("getCenter 시작");
-    var center_x = parseFloat(x_min) + ((parseFloat(x_max) - parseFloat(x_min)) / 2);
-    var center_y = parseFloat(y_min) + ((parseFloat(y_max) - parseFloat(y_min)) / 2);
-    console.log(center_x,'oo', center_y);
+    // var center_x = parseFloat(x_min) + ((parseFloat(x_max) - parseFloat(x_min)) / 2);
+    // var center_y = parseFloat(y_min) + ((parseFloat(y_max) - parseFloat(y_min)) / 2);
+    // console.log(center_x,'oo', center_y);
+    // coords = new kakao.maps.LatLng(center_x, center_y);
+    const avgPointResult = getAvgPoint(data);
+    center_x = avgPointResult.x;
+    center_y = avgPointResult.y;
     coords = new kakao.maps.LatLng(center_x, center_y);
-    
+    console.log("coords", coords);
+
     // var marker = new kakao.maps.Marker({
     //     map: map,
     //     position: coords
@@ -284,15 +353,13 @@ function getCenter() {
         location: coords,
         radius: setRadius,
     };
+    // infowindow.open(map, marker);
     setBounds();
-    console.log("getCenter 끝");
-}
+    console.log("끝");
+    }
 
 async function setMarker(){
     await searchLoc();
-    await timer(500);
-
-    await gatMinMax(coordinates);
     await timer(500);
 
     await getCenter();
@@ -304,19 +371,24 @@ async function setMarker(){
 
 async function searchLoc() {
     for (let i = 0; i < locations.length; i++) {
-        document.write("위치 " + (i+1) + ": " + locations[i] + "<br>");
-        // 주소-좌표 변환 객체를 생성합니다
-        var geocoder = new kakao.maps.services.Geocoder();
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(locations[i], function(result, status) {
-
             // 정상적으로 검색이 완료됐으면 
             if (status === kakao.maps.services.Status.OK) {
-
                 var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                coordinates.push([result[0].y, result[0].x]);
-                console.log([result[0].y, result[0].x]);
+                if (weight[i] == 0) {
+                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), 1));
+                    console.log("0 입니다.");
+                } else {
+                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), parseInt(weight[i])));
+                    console.log(weight, "0 이 아닙니다.", i);
+                }
+                
+                console.log(data);
+                console.log("===");
                 // 결과값으로 받은 위치를 마커로 표시합니다
+                removeMarker();
+
                 var marker = new kakao.maps.Marker({
                     map: map,
                     position: coords
@@ -352,3 +424,38 @@ let box_observer = new ResizeObserver(entries => {
 const box = document.querySelector('#map');
 
 box_observer.observe(box);
+
+// 가중치 계산 식
+// Point
+const Point = (x,y,w) => ({
+    x,
+    y,
+    w,
+});
+
+const data = [];
+
+function weightedAverage(v1, w1, v2, w2) {
+    if (w1 === 0) return v2;
+    if (w2 === 0) return v1;
+    return ((v1 * w1) + (v2 * w2)) / (w1 + w2);
+}
+  
+function avgPoint(p1, p2) {
+    console.log("p1", p1);
+    console.log("p2", p2);
+    return {
+        x: weightedAverage(p1.x, p1.w, p2.x, p2.w),
+        y: weightedAverage(p1.y, p1.w, p2.y, p2.w),
+        w: p1.w + p2.w,
+    }
+}
+
+function getAvgPoint(arr) {
+    console.log("arr",arr);
+    return arr.reduce(avgPoint, {
+        x: 0,
+        y: 0,
+        w: 0
+    });
+}
