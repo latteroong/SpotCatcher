@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SpotCatcher</title>
-        <link rel="stylesheet" href="mainStyle.css"/>
+        <link rel="stylesheet" href="css/mainStyle.css"/>
     </head>
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -12,7 +12,7 @@
             $keyword = $_POST['keyword'];
             $locations = json_encode($locations);
     ?>
-            <link rel="stylesheet" href="resultStyle.css"/>
+            <link rel="stylesheet" href="css/resultStyle.css"/>
             <script>
                 var locations = <?=$locations?>;
                 var keyword = '<?=$keyword?>';
@@ -43,11 +43,11 @@
                 </div>
             </body>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
-            <script src="resultScript.js"></script>
+            <script src="js/resultScript.js"></script>
     <?php
         } else {
     ?>
-            <link rel="stylesheet" href="searchStyle.css"/>
+            <link rel="stylesheet" href="css/searchStyle.css"/>
             <body>
                 <div class="header">
                     <p>SpotCatcher</p>
@@ -76,7 +76,7 @@
             </body>
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
-            <script src="searchScript.js"></script>
+            <script src="js/searchScript.js"></script>
             <?php
         }
     ?>
