@@ -5,7 +5,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>SpotCatcher</title>
         <link rel="stylesheet" href="css/mainStyle.css"/>
-    </head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+   </head>
+   <header>
+        <a href = "spotcatcher.php">
+            <p>SpotCatcher</p>
+        </a>
+    </header>
     <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $locations = $_POST['location'];
@@ -22,9 +33,6 @@
                 };
             </script>
             <body>
-                <div class="header">
-                    <p>SpotCatcher</p>
-                </div>
                 <div class="map_wrap">
                     <div id="map"></div>
                     <div id="menu_wrap" class="bg_white">
@@ -49,11 +57,24 @@
     ?>
             <link rel="stylesheet" href="css/searchStyle.css"/>
             <body>
-                <div class="header">
-                    <p>SpotCatcher</p>
+                <div class="introduce">
+                    <div class="Intro_explain_1" style="margin : 10px;">
+                        <h4>
+                        원하는 장소,원하는 거리 비율로<br>
+                        장소를 추천해드립니다
+                        </h4>
+                        <p>현재 위치와 원하는 인원 수를 입력해 <br>주세요.</p>
+                    </div>
+                    <div class="Intro_explain_2" style="margin : 10px;">
+                    <h4> Spot Catcher로<br>
+                        약속 장소를 정해 보세요</h4>
+                        <form id="goDown">
+                            <button type="button"><img src='img/arrow_down.png' style="border : none; width : 50px; height : 50px; "></button>
+                        </form>
+                    </div>
                 </div>
                 <form id="locationForm" action="spotcatcher.php" method="post">
-                    <div>
+                    <div class="inputKeyWord">
                         <p>키워드 입력</p>
                         <input type="text" name="keyword">
                     </div>
@@ -69,8 +90,17 @@
                             <button type="button" class="removeLocationBtn">삭제</button>
                         </div>
                     </div>
-                    <button type="button" id="addLocationBtn">위치 추가</button>
-                    <button type="submit">제출</button>
+                    <table>
+                        <tr>
+                            <td>
+                                <button type="button" id="addLocationBtn">위치 추가</button>
+                            </td>
+                            <td>
+                                <button type="submit">제출</button>
+                            </td>
+                            
+                        </tr>
+                    </table>
                 </form>
                 <div id="map"></div>
             </body>
