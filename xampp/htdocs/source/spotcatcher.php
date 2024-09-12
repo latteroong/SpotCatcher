@@ -52,6 +52,7 @@
             </body>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
             <script src="js/resultScript.js"></script>
+            <button onclick="directions()">길찾기</button>
     <?php
         } else {
     ?>
