@@ -49,10 +49,15 @@
                         <div id="pagination"></div>
                     </div>
                 </div>
+                <div class="input-container"></div>
+                <button onclick="directions()">길찾기</button>
+                <div id="btnKakao">
+                    <img src="img/arrow_down.png" id="kakao-link-btn" alt="카카오톡 링크 공유하기">
+                </div>
             </body>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
             <script src="js/resultScript.js"></script>
-            <button onclick="directions()">길찾기</button>
+            
     <?php
         } else {
     ?>

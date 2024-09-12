@@ -8,9 +8,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         console.log('Keyword:', keyword);     // 예제 키워드
 
         // 위치 목록을 담을 컨테이너 div를 생성
-        const containerDiv = document.createElement('div');
-        containerDiv.className = 'input-container';
-
+        const containerDiv = document.querySelector(".input-container");
         // locations 배열을 순회하며 인풋 박스와 버튼 추가
         locations.forEach((location, index) => {
             // 새로운 div 요소 생성
@@ -193,7 +191,7 @@ function getListItem(index, places) {
 }
 
 // 마커를 생성하고 지도 위에 마커를 표시하는 함수입니다
-function addMarker(position, idx, title) {
+function addMarker(position, idx) {
     let imageSrc = 'https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/marker_number_blue.png', // 마커 이미지 url, 스프라이트 이미지를 씁니다
         imageSize = new kakao.maps.Size(36, 37),  // 마커 이미지의 크기
         imgOptions =  {
@@ -422,3 +420,18 @@ function directions() {
     }
     
 }
+
+//
+document.write('<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>');
+// // 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('2c5ea89bb07fbfafa9c6b8ebea734dfd');
+// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+console.log(kakao.isInitialized());
+Kakao.Share.createCustomButton({
+    container: '#kakao-link-btn',
+    templateId: '112180',
+    templateArgs: {
+        title: '제목 영역입니다.',
+        description: '설명 영역입니다.',
+    },
+});
