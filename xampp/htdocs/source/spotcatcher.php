@@ -51,13 +51,16 @@
                 </div>
                 <div class="input-container"></div>
                 <button onclick="directions()">길찾기</button>
-                <div id="btnKakao">
-                    <img src="img/arrow_down.png" id="kakao-link-btn" alt="카카오톡 링크 공유하기">
-                </div>
+                <a id="kakao-link-btn" href="javascript:;">
+                    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                        alt="카카오톡 공유 보내기 버튼" />
+                </a>
             </body>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
+            <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
+            integrity="sha384-TiCUE00h649CAMonG018J2ujOgDKW/kVWlChEuu4jK2vxfAAD0eZxzCKakxg55G4" crossorigin="anonymous"></script>
+            <script>Kakao.init('2c5ea89bb07fbfafa9c6b8ebea734dfd');</script>
             <script src="js/resultScript.js"></script>
-            
     <?php
         } else {
     ?>

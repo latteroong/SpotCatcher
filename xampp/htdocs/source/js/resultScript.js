@@ -422,16 +422,12 @@ function directions() {
 }
 
 //
-document.write('<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>');
-// // 사용할 앱의 JavaScript 키를 설정해 주세요.
-Kakao.init('2c5ea89bb07fbfafa9c6b8ebea734dfd');
-// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
-console.log(kakao.isInitialized());
-Kakao.Share.createCustomButton({
-    container: '#kakao-link-btn',
-    templateId: '112180',
-    templateArgs: {
-        title: '제목 영역입니다.',
-        description: '설명 영역입니다.',
-    },
+document.addEventListener('DOMContentLoaded', function() {
+    // Kakao SDK가 완전히 로드된 후 실행
+    if (typeof Kakao !== 'undefined') {
+        Kakao.Share.createCustomButton({
+            container: '#kakao-link-btn',
+            templateId: 112180,
+        });
+    }
 });
