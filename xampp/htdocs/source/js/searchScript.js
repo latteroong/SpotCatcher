@@ -1,7 +1,8 @@
 let locPosition = new kakao.maps.LatLng(0.0, 0.0);
 let detailAddr = ""
 let geocoder = new kakao.maps.services.Geocoder();
-
+let width = 500;
+let height = 600;
 function searchDetailAddrFromCoords(coords, callback) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
@@ -9,6 +10,8 @@ function searchDetailAddrFromCoords(coords, callback) {
 
 function daumPostcode(num) {
     new daum.Postcode({
+        width: width, //생성자에 크기 값을 명시적으로 지정해야 합니다.
+        height: height,
         oncomplete: function(data) {
             // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
@@ -27,6 +30,8 @@ function daumPostcode(num) {
             document.getElementById("loc"+num).value = addr;
         }
     }).open({
+        left: (window.screen.width / 2) - (width / 2),
+        top: (window.screen.height / 2) - (height / 2),
         q: detailAddr
     });
 }
