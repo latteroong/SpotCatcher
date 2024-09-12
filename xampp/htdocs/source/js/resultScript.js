@@ -104,6 +104,8 @@ let geocoder = new kakao.maps.services.Geocoder();
 
 // 현재 클릭한 주소 아이디
 let clickId = "";
+// 현재 클릭한 장소 이름
+let clickLocName = "";
 
 function setBounds() {
     // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
@@ -152,6 +154,7 @@ function displayMarker(places) {
                 infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
                 clickId = place.id;
+                clickLocName = place.place_name;
             });
 
             itemEl.onclick =  function () {
@@ -159,6 +162,7 @@ function displayMarker(places) {
                 infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
                 clickId = place.id;
+                clickLocName = place.place_name;
             };
         })(marker, places[j]);
 
@@ -421,13 +425,23 @@ function directions() {
     
 }
 
-//
-document.addEventListener('DOMContentLoaded', function() {
-    // Kakao SDK가 완전히 로드된 후 실행
+// 공유하기
+Kakao.init('2c5ea89bb07fbfafa9c6b8ebea734dfd');
+const kakaoShareBtn = document.getElementById('kakao-link-btn');
+ 
+kakaoShareBtn.addEventListener('click', function() {
     if (typeof Kakao !== 'undefined') {
-        Kakao.Share.createCustomButton({
-            container: '#kakao-link-btn',
-            templateId: 112180,
-        });
+        if (clickLocName == "") {
+            alert("공유할 장소를 선택해 주세요!");
+        } else {
+            Kakao.Share.createCustomButton({
+                container: '#kakao-link-btn',
+                templateId: 112180,
+                templateArgs: {
+                    clickLocName: clickLocName
+                },
+            });
+        }
+        
     }
-});
+})
