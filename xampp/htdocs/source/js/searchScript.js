@@ -1,4 +1,11 @@
-var locPosition = new kakao.maps.LatLng(0.0, 0.0);
+let locPosition = new kakao.maps.LatLng(0.0, 0.0);
+let detailAddr = ""
+let geocoder = new kakao.maps.services.Geocoder();
+
+function searchDetailAddrFromCoords(coords, callback) {
+    // 좌표로 법정동 상세 주소 정보를 요청합니다
+    geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
+}
 
 function daumPostcode(num) {
     new daum.Postcode({
@@ -8,7 +15,6 @@ function daumPostcode(num) {
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
             var addr = ''; // 주소 변수
-            var extraAddr = ''; // 참고항목 변수
 
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -20,7 +26,9 @@ function daumPostcode(num) {
             // 주소 정보를 해당 필드에 넣는다.
             document.getElementById("loc"+num).value = addr;
         }
-    }).open();
+    }).open({
+        q: detailAddr
+    });
 }
 
 // 삭제 버튼 상태를 업데이트하는 함수
@@ -130,12 +138,18 @@ if (navigator.geolocation) {
         
         // 마커와 인포윈도우를 표시합니다
         displayMarker(locPosition, message);
-            
+        
+        searchDetailAddrFromCoords(locPosition, function(result, status) {
+            if (status === kakao.maps.services.Status.OK) {
+                detailAddr = !!result[0].road_address ? result[0].road_address.address_name:"";
+            }
         });
+            
+    });
     
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     
-    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+    locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
         message = 'geolocation을 사용할수 없어요..'
         
     displayMarker(locPosition, message);
