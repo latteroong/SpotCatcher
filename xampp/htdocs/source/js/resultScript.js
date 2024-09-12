@@ -104,6 +104,9 @@ let ps = new kakao.maps.services.Places();
 // 주소-좌표 변환 객체를 생성합니다
 let geocoder = new kakao.maps.services.Geocoder();
 
+// 현재 클릭한 주소 아이디
+let clickId = "";
+
 function setBounds() {
     // LatLngBounds 객체에 추가된 좌표들을 기준으로 지도의 범위를 재설정합니다
     // 이때 지도의 중심좌표와 레벨이 변경될 수 있습니다
@@ -150,14 +153,15 @@ function displayMarker(places) {
             kakao.maps.event.addListener(marker, 'click', function() {
                 infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
+                clickId = place.id;
             });
 
             itemEl.onclick =  function () {
                 infowindow.close();
                 infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
+                clickId = place.id;
             };
-
         })(marker, places[j]);
 
         listEl.appendChild(fragment);
@@ -411,6 +415,10 @@ function getAvgPoint(arr) {
 
 // 길찾기
 function directions() {
-    "https://map.kakao.com/link/to/ 카카오판교오피스,37.402056,127.108212"
-    "https://map.kakao.com/link/to/ 18577297"
+    if (clickId == "") {
+        alert("찾을 위치를 클릭해주세요.");
+    } else {
+        location.href=`https://map.kakao.com/link/to/${clickId}`;
+    }
+    
 }
