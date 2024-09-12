@@ -4,21 +4,20 @@ body .introduce {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
-    height: 700px; 
+    height: 84vh; 
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 }
 
-
 .introduce::before {
     content: "";
     position: absolute; 
     top: 0; 
     left: 0;
-    width: 100%;
-    height: 100%; 
+    width: 100vw;
+    height: 84vh; 
     opacity: 18%;
     background-color: #50b498;
     z-index: 1;
@@ -40,11 +39,13 @@ body .Intro_explain_1{
 body .Intro_explain_1 h4{
     font-size: 25px;
     text-align: left;
+    padding: 0px;
     
 }
 body .Intro_explain_1 p{
     font-size: 20px;
     text-align: left;
+    padding: 0px;
     
 }
 body .Intro_explain_2{
@@ -105,6 +106,15 @@ body .Intro_explain_2{
     display: grid;
 }
 
+#locations #guide{
+    color: gray;
+    font-size: 15px;
+    margin-bottom: 0px;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .location input[type = "text"]{
     width : 1000px;
     height: 40px;
@@ -120,20 +130,40 @@ body .Intro_explain_2{
 }
 
 
-#addLocation{
-    width: 250px;
-    height: 30px;
+#addLocationBtn{
+    width: 300px;
+    height: 50px;
+    border: #50b498 2px solid;
+    border-radius: 10px;
+    background-color: #50b498;
+    color: #fff;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
 }
 
-#submit{
-    width: 250px;
-    height: 30px;
+#submitBtn{
+    width: 300px;
+    height: 50px;
+    border: #50b498 2px solid;
+    border-radius: 10px;
+    background-color: #50b498;
+    color: #fff;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 20px;
+    text-align: center;
 }
 
 .removeLocationBtn{
     width: 60px;
     height : 40px;
 }
+
+
 
 @media (min-width: 768px) {
     #map {

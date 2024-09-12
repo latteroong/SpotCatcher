@@ -1,4 +1,4 @@
-let locPosition = new kakao.maps.LatLng(0.0, 0.0);
+var locPosition = new kakao.maps.LatLng(0.0, 0.0);
 
 function daumPostcode(num) {
     new daum.Postcode({
@@ -7,8 +7,8 @@ function daumPostcode(num) {
 
             // 각 주소의 노출 규칙에 따라 주소를 조합한다.
             // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
-            let addr = ''; // 주소 변수
-            let extraAddr = ''; // 참고항목 변수
+            var addr = ''; // 주소 변수
+            var extraAddr = ''; // 참고항목 변수
 
             //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
             if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
@@ -23,17 +23,6 @@ function daumPostcode(num) {
     }).open();
 }
 
-// 위치 추가 버튼 상태를 업데이트하는 함수
-function updateLocAddButton() {
-    let locations = document.querySelectorAll('.location');
-    const locAddButton = document.querySelector('#addLocationBtn');
-    if (locations.length === 8) {
-        locAddButton.disabled = true;
-    } else {
-        locAddButton.disabled = false;
-    }
-}
-
 // 삭제 버튼 상태를 업데이트하는 함수
 function updateRemoveButtons() {
     const removeButtons = document.querySelectorAll('.removeLocationBtn');
@@ -46,15 +35,6 @@ function updateRemoveButtons() {
 }
 
 document.getElementById('addLocationBtn').addEventListener('click', function() {
-    const locations = document.querySelectorAll('.location');
-    const maxLocations = 8;
-
-    // 현재 위치의 개수를 체크하고, 8개 이상이면 추가하지 않음
-    if (locations.length >= maxLocations) {
-        alert(`위치 입력은 최대 ${maxLocations}개까지만 추가할 수 있습니다.`);
-        return;
-    }
-
     const newLocationDiv = document.createElement('div');
     newLocationDiv.className = 'location';
 
@@ -73,12 +53,10 @@ document.getElementById('addLocationBtn').addEventListener('click', function() {
         newLocationDiv.remove();
         updateLocationLabels();
         updateRemoveButtons();
-        updateLocAddButton();
     });
 
     updateLocationLabels();
     updateRemoveButtons();
-    updateLocAddButton();
 });
 
 // 기존의 삭제 버튼에 이벤트 리스너를 추가합니다.
@@ -130,13 +108,13 @@ document.getElementById('locationForm').addEventListener('submit', validateForm)
 
 updateRemoveButtons();
 
-let mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨 
     }; 
 
-let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
 
 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 if (navigator.geolocation) {
@@ -144,7 +122,7 @@ if (navigator.geolocation) {
     // GeoLocation을 이용해서 접속 위치를 얻어옵니다
     navigator.geolocation.getCurrentPosition(function(position) {
         
-        let lat = position.coords.latitude, // 위도
+        var lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
         
         locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
@@ -157,7 +135,7 @@ if (navigator.geolocation) {
     
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
     
-    let locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
+    var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
         message = 'geolocation을 사용할수 없어요..'
         
     displayMarker(locPosition, message);
@@ -167,16 +145,16 @@ if (navigator.geolocation) {
 function displayMarker(locPosition, message) {
 
     // 마커를 생성합니다
-    let marker = new kakao.maps.Marker({  
+    var marker = new kakao.maps.Marker({  
         map: map, 
         position: locPosition
     }); 
     
-    let iwContent = message, // 인포윈도우에 표시할 내용
+    var iwContent = message, // 인포윈도우에 표시할 내용
         iwRemoveable = true;
 
     // 인포윈도우를 생성합니다
-    let infowindow = new kakao.maps.InfoWindow({
+    var infowindow = new kakao.maps.InfoWindow({
         content : iwContent,
         removable : iwRemoveable
     });

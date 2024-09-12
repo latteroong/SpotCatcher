@@ -10,73 +10,6 @@ body .header {
     justify-content: space-between;
 }
 
-body .introduce {
-    position: relative;
-    background-image: url('SpotCatcher_mainPage.jpg'); 
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 600px; 
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
-
-
-.introduce::before {
-    content: "";
-    position: absolute; 
-    top: 0; 
-    left: 0;
-    width: 100%;
-    height: 100%; 
-    opacity: 18%;
-    background-color: #50b498;
-    z-index: 1;
-}
-
-body .Intro_explain_1{
-    text-align: center;
-    width: 25% ;
-    height: 50% ;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
-    flex-direction: column;
-} 
-
-
-body .Intro_explain_1 h4{
-    font-size: 25px;
-    text-align: left;
-    
-}
-body .Intro_explain_1 p{
-    font-size: 20px;
-    text-align: left;
-    
-}
-body .Intro_explain_2{
-    font-size: 25px;
-    align-items: center;
-    width: 30% ;
-    height: 40% ;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #fff;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
-    flex-direction: column;
-}
-
-.Intro_explain_2 h4{
-    text-align: center;
-    padding: none;
-}
-
 .mid-point{
     font-family: "Black Han Sans", system-ui;
     font-weight: 400;
@@ -88,18 +21,8 @@ body .Intro_explain_2{
 
 
 #map {
-    width: 100%;
-    height: 750px;
-}
-
-#locationForm{
- border: 3px solid #50b498;
- width: 20%;
- height: 8%;
- align-items: center;
- justify-content: center;
- margin: 0 auto;
-
+    width: 98vw;
+    height: 80vh;
 }
 
 
@@ -125,9 +48,40 @@ input[type="text"] {
     height : 40px;
 }
 
+#menu_wrap{
+    border:3px #50b498 solid;
+}
+
+#map{
+    border:3px #50b498 solid;
+    border-radius: 10px;
+}
+
+
+.input-container{
+    border: 3px solid#326355;
+    border-top-left-radius: 10px;  /* 왼쪽 상단 모서리 둥글게 */
+    border-top-right-radius: 10px;
+    overflow: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.weightValues input[type="number"]{
+    width: 300px;
+    height: 30px;
+    border: #50b498 3px solid;
+    align-items: center;
+    text-align: center;
+    margin: 3px;
+}
+
+
+
 @media (min-width: 768px) {
     #map {
-        width: 1000px;
+        /* width: 100vw; */
         margin: 0 auto;
     }
     

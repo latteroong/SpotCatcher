@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // 위치 목록을 담을 컨테이너 div를 생성
         const containerDiv = document.querySelector(".input-container");
+        
         // locations 배열을 순회하며 인풋 박스와 버튼 추가
         locations.forEach((location, index) => {
             // 새로운 div 요소 생성
             const locationDiv = document.createElement('div');
             locationDiv.className = 'weightValues';
             
+            
+
             // 주소 텍스트 생성
             const addressLabel = document.createElement('span');
             addressLabel.textContent = index+1;
@@ -37,6 +40,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // 컨테이너 div에 추가
             containerDiv.appendChild(locationDiv);
         });
+
+        
         // 제출 버튼 생성
         const submitButton = document.createElement('button');
         submitButton.type = 'button';
