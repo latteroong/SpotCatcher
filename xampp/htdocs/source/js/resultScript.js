@@ -9,12 +9,15 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         // 위치 목록을 담을 컨테이너 div를 생성
         const containerDiv = document.querySelector(".input-container");
+        
         // locations 배열을 순회하며 인풋 박스와 버튼 추가
         locations.forEach((location, index) => {
             // 새로운 div 요소 생성
             const locationDiv = document.createElement('div');
             locationDiv.className = 'weightValues';
             
+            
+
             // 주소 텍스트 생성
             const addressLabel = document.createElement('span');
             addressLabel.textContent = index+1;
@@ -37,6 +40,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
             // 컨테이너 div에 추가
             containerDiv.appendChild(locationDiv);
         });
+
+        
         // 제출 버튼 생성
         const submitButton = document.createElement('button');
         submitButton.type = 'button';
@@ -422,12 +427,16 @@ function directions() {
 }
 
 //
-document.addEventListener('DOMContentLoaded', function() {
-    // Kakao SDK가 완전히 로드된 후 실행
-    if (typeof Kakao !== 'undefined') {
-        Kakao.Share.createCustomButton({
-            container: '#kakao-link-btn',
-            templateId: 112180,
-        });
-    }
+document.write('<script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>');
+// // 사용할 앱의 JavaScript 키를 설정해 주세요.
+Kakao.init('2c5ea89bb07fbfafa9c6b8ebea734dfd');
+// // 카카오링크 버튼을 생성합니다. 처음 한번만 호출하면 됩니다.
+console.log(kakao.isInitialized());
+Kakao.Share.createCustomButton({
+    container: '#kakao-link-btn',
+    templateId: '112180',
+    templateArgs: {
+        title: '제목 영역입니다.',
+        description: '설명 영역입니다.',
+    },
 });
