@@ -50,13 +50,21 @@
                         <hr>
                         <ul id="placesList"></ul>
                         <div id="pagination"></div>
+                        <div class="input-container"></div>
                     </div>
+                    
                 </div>
-                <div class="input-container"></div>
-                <button onclick="directions()">길찾기</button>
-                <div id="btnKakao">
-                    <img src="img/arrow_down.png" id="kakao-link-btn" alt="카카오톡 링크 공유하기">
+                <div class="mid">
+                    <button onclick="directions()">길찾기</button>
+                    <a id="kakao-link-btn" href="javascript:;">
+                        <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                            alt="카카오톡 공유 보내기 버튼" />
+                    </a>
                 </div>
+                <div class="bottom">
+                    <p>광고삽입</p>
+                </div>
+                
             </body>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
             <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.7.2/kakao.min.js"
