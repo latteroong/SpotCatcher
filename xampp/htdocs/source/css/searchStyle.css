@@ -35,17 +35,19 @@ body .Intro_explain_1{
     flex-direction: column;
 } 
 
-
 body .Intro_explain_1 h4{
-    font-size: 25px;
     text-align: left;
     padding: 0px;
+    width: 280px;
     
 }
+
+
 body .Intro_explain_1 p{
     font-size: 20px;
     text-align: left;
     padding: 0px;
+    width: 280px;
     
 }
 body .Intro_explain_2{
@@ -89,7 +91,6 @@ body .Intro_explain_2{
  justify-content: center;
  display: grid;
  margin: 10px;
-
 }
 
 #locations{
@@ -123,7 +124,7 @@ body .Intro_explain_2{
 }
 
 .inputKeyWord input[type = "text"]{
-    width : 1000px;
+    width : 1150px;
     height: 40px;
     margin-bottom:10px; 
     border : solid 3px #50b498;
@@ -163,6 +164,26 @@ body .Intro_explain_2{
     height : 40px;
 }
 
+@media (max-width: 1050px){
+    div.Intro_explain_1 {
+        display: none;
+    }
+    div.Intro_explain_2{
+        width: 450px;
+        height: 300px;
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-height: 310px){
+    div.Intro_explain_1 p{
+        display: none;
+    }
+}
+
+
 
 
 @media (min-width: 768px) {
@@ -172,3 +193,5 @@ body .Intro_explain_2{
     }
     
 }
+
+
