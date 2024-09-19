@@ -157,7 +157,15 @@ table{
 }
 
 table button{
-    margin: 5px;
+    margin: 5px;}
+#goDown {
+    width : 50px;
+    height : 50px;
+    background-image: url('../img/arrow_down.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #addLocationBtn{

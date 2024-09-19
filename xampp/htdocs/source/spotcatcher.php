@@ -77,18 +77,15 @@
             <body>
                 <div class="introduce">
                     <div class="Intro_explain_1" style="margin : 10px;">
-                    <h4>
-                        원하는 장소,<br>원하는 거리 비율로<br>
-                        장소를 추천해드립니다
-                        </h4>   
+                        <h4>
+                            원하는 장소,<br>원하는 거리 비율로<br>
+                            장소를 추천해드립니다
+                        </h4>
                         <p> 현재 위치와 원하는 인원 수를 입력해 주세요.</p>
                     </div>
                     <div class="Intro_explain_2" style="margin : 10px;">
-                    <h4> Spot Catcher로<br>
-                        약속 장소를 정해 보세요</h4>
-                        <div id="goDown">
-                        </div>
-                    </div>
+                        <h4>Spot Catcher로<br>약속 장소를 정해 보세요</h4>
+                        <div id="goDown"></div>
                     </div>
                 </div>
                 <form id="locationForm" action="spotcatcher.php" method="post">
