@@ -84,13 +84,13 @@ body .Intro_explain_2{
 }
 
 #locationForm{
- border: 3px solid #50b498;
- width: auto;
- height: 550px;
- align-items: center;
- justify-content: center;
- display: grid;
- margin: 10px;
+    border: 3px solid #50b498;
+    width: auto;
+    height: 550px;
+    align-items: center;
+    justify-content: center;
+    display: grid;
+    margin: 10px;
 }
 
 #locations{
@@ -119,8 +119,8 @@ body .Intro_explain_2{
 .location input[type = "text"]{
     width : 1000px;
     height: 40px;
-     margin-bottom:10px; 
-     border : solid 3px #50b498;
+    margin-bottom:10px; 
+    border : solid 3px #50b498;
 }
 
 .inputKeyWord input[type = "text"]{
@@ -130,6 +130,14 @@ body .Intro_explain_2{
     border : solid 3px #50b498;
 }
 
+#goDown {
+    width : 50px;
+    height : 50px;
+    background-image: url('../img/arrow_down.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+}
 
 #addLocationBtn{
     width: 300px;

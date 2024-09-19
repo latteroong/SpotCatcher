@@ -12,10 +12,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     </head>
-   <header>
+    <header>
         <a href = "spotcatcher.php">
             <p>SpotCatcher</p>
         </a>
@@ -86,9 +86,7 @@
                     <div class="Intro_explain_2" style="margin : 10px;">
                     <h4> Spot Catcher로<br>
                         약속 장소를 정해 보세요</h4>
-                        <form id="goDown">
-                            <button type="button"><img src='img/arrow_down.png' style="border : none; width : 50px; height : 50px; "></button>
-                        </form>
+                        <div id="goDown"></div>
                         <script src="js/goDowning.js"></script>
                     </div>
                 </div>
