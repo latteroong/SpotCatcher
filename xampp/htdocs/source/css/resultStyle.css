@@ -13,7 +13,7 @@
 .map_wrap {
     position:relative;
     width:98vw;
-    height:80vh;
+    /* height:80vh; */
 }
 
 #menu_wrap {
@@ -22,6 +22,7 @@
     left:0;
     bottom:0;
     width:250px;
+    height:75vh;
     margin:10px 0 30px 10px;
     padding:5px;
     overflow-y:auto;
@@ -209,6 +210,8 @@ input[type="text"] {
     display: grid;
     justify-content: center;
     align-items: center;
+    margin-bottom: 20px; /* 아래쪽 공간 추가 */
+    height: 100px;
 }
 
 .weightValues input[type="number"]{
@@ -220,7 +223,11 @@ input[type="text"] {
     margin: 3px;
 }
 
-
+.mid {
+    position: relative;
+    margin-top: 20px; /* 위쪽 공간 추가 */
+    z-index: 2; /* 다른 div보다 위로 올리기 */
+}
 
 @media (min-width: 768px) {
     #map {
