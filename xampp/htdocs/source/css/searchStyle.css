@@ -4,6 +4,7 @@ body .introduce {
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
+    width: 100vw;
     height: 84vh; 
     display: flex;
     justify-content: center;
@@ -20,26 +21,28 @@ body .introduce {
     height: 84vh; 
     opacity: 18%;
     background-color: #50b498;
-    z-index: 1;
+    z-index: -1;
 }
 
 body .Intro_explain_1{
     text-align: center;
     width: 25% ;
-    height: 50% ;
+    height: 40% ;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     background-color: #fff;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
     flex-direction: column;
+    margin : 30px;
+    z-index: 1;
 } 
 
 body .Intro_explain_1 h4{
     text-align: left;
     padding: 0px;
     width: 280px;
-    
+    font-size: 25px;
 }
 
 
@@ -53,20 +56,22 @@ body .Intro_explain_1 p{
 body .Intro_explain_2{
     font-size: 25px;
     align-items: center;
-    width: 30% ;
-    height: 40% ;
+    width: 25%  ;
+    height: 40%  ;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     background-color: #fff;
     box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
     flex-direction: column;
+    margin : 30px;
+    z-index: 1;
 }
 
 .Intro_explain_2 h4{
     text-align: center;
     padding: none;
-}
+    margin-top: 100px;
+} 
 
 .mid-point{
     font-family: "Black Han Sans", system-ui;
@@ -77,31 +82,46 @@ body .Intro_explain_2{
     align-items: center;
 }
 
+#goDown {
+    width : 50px;
+    height : 50px;
+    background-image: url('../img/arrow_down.png');
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
 
 #map {
-    width: 100%;
-    height: 750px;
+    width:1250px; 
+    height:600px;
+    filter: blur(8px); /* 흐림 정도 조절 */
+    z-index: -1; 
+    position: absolute;
 }
 
 #locationForm{
-    border: 3px solid #50b498;
-    width: auto;
+    border: none;
+    width: 98.5vw;
     height: 550px;
+    display: grid;
+    min-width: 1205px;
+    margin: 10px;
     align-items: center;
     justify-content: center;
-    display: grid;
-    margin: 10px;
+    position: relative;
+    z-index: 1;
+
 }
 
 #locations{
     flex-direction: column; 
     box-shadow: 5px 5px 15px #50b498; 
     border-radius: 30px; 
-    width:1150px; 
-    height:300px;
+    width:1250px; 
+    height:600px;
     overflow:auto;
     margin : 10px;
-    max-height:300px;
     align-items: center;
     justify-content: center;
     display: grid;
@@ -119,8 +139,8 @@ body .Intro_explain_2{
 .location input[type = "text"]{
     width : 1000px;
     height: 40px;
-    margin-bottom:10px; 
-    border : solid 3px #50b498;
+     margin-bottom:10px; 
+     border : solid 3px #50b498;
 }
 
 .inputKeyWord input[type = "text"]{
@@ -130,40 +150,41 @@ body .Intro_explain_2{
     border : solid 3px #50b498;
 }
 
-#goDown {
-    width : 50px;
-    height : 50px;
-    background-image: url('../img/arrow_down.png');
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
+table{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+table button{
+    margin: 5px;
 }
 
 #addLocationBtn{
     width: 300px;
     height: 50px;
-    border: #50b498 2px solid;
+    border: rgb(189, 189, 189) 1px solid;
     border-radius: 10px;
-    background-color: #50b498;
-    color: #fff;
+    background-color: #fff;
+    color: black;
     font-family: "Gothic A1", sans-serif;
     font-weight: 500;
     font-style: normal;
-    font-size: 20px;
+    font-size: 14px;
     text-align: center;
 }
 
 #submitBtn{
     width: 300px;
     height: 50px;
-    border: #50b498 2px solid;
+    border: rgb(189, 189, 189) 1px solid;
     border-radius: 10px;
-    background-color: #50b498;
-    color: #fff;
+    background-color: #fff;
+    color: black;
     font-family: "Gothic A1", sans-serif;
     font-weight: 500;
     font-style: normal;
-    font-size: 20px;
+    font-size: 14px;
     text-align: center;
 }
 
@@ -196,7 +217,7 @@ body .Intro_explain_2{
 
 @media (min-width: 768px) {
     #map {
-        width: 1000px;
+        /* width: 1000px; */
         margin: 0 auto;
     }
     
