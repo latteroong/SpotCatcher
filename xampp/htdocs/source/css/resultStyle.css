@@ -1,6 +1,3 @@
-#pagination a {display:inline-block;margin-right:10px;}
-#pagination .on {font-weight: bold; cursor: default;color:#777;}
-
 .map_wrap, .map_wrap * {
     margin:0;
     padding:0;
