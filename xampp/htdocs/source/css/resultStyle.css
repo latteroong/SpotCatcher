@@ -203,7 +203,7 @@ input[type="text"] {
 
 
 .input-container{
-    border: 3px solid#326355;
+    border: none;
     border-top-left-radius: 10px;  /* 왼쪽 상단 모서리 둥글게 */
     border-top-right-radius: 10px;
     overflow: auto;
@@ -211,7 +211,23 @@ input[type="text"] {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px; /* 아래쪽 공간 추가 */
-    height: 100px;
+    height: 250px;
+    max-height: 250px;
+}
+
+.input-container p{
+    margin: 10px;
+    font-size: 13px;
+    color: gray;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.weightValues{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .weightValues input[type="number"]{
@@ -223,10 +239,49 @@ input[type="text"] {
     margin: 3px;
 }
 
-.mid {
-    position: relative;
+
+
+div.mid {
+    position: flex;
     margin-top: 20px; /* 위쪽 공간 추가 */
     z-index: 2; /* 다른 div보다 위로 올리기 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    border: 1px solid;
+    width: 250px;
+    max-height: 80px;
+}
+
+div.mid button{
+    width: 55px;
+    height: 55px;
+    border-radius: 100px;
+    margin: 5px;
+    font-size: 10px;
+}
+
+.mid #kakao-link-btn{
+    width: 55px;
+    height: 55px;
+    border-radius: 100px;
+}
+
+.submit-button{
+    position: flex;
+    align-items: right;
+    justify-content: flex-end;
+    display: flex;
+    float: right;
+}
+
+
+
+.bottom{
+    background:url("../img/ad_banner.jpg") ;
+    height: 150px;
+    background-position: center;
 }
 
 @media (min-width: 768px) {
