@@ -77,26 +77,28 @@
             <body>
                 <div class="introduce">
                     <div class="Intro_explain_1" style="margin : 10px;">
-                        <h4>
-                            원하는 장소,<br>원하는 거리 비율로<br>
-                            장소를 추천해드립니다
-                        </h4>
+                    <h4>
+                        원하는 장소,<br>원하는 거리 비율로<br>
+                        장소를 추천해드립니다
+                        </h4>   
                         <p> 현재 위치와 원하는 인원 수를 입력해 주세요.</p>
                     </div>
                     <div class="Intro_explain_2" style="margin : 10px;">
-                        <h4>Spot Catcher로<br>약속 장소를 정해 보세요</h4>
-                        <div id="goDown"></div>
+                    <h4> Spot Catcher로<br>
+                        약속 장소를 정해 보세요</h4>
+                        <div id="goDown">
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <form id="locationForm" action="spotcatcher.php" method="post">
-                
-                    <div id="locations">
                     <div id="map"></div>
+                    <div id="locations">
+                        <p id="guide"> ※ 입력칸을 누르면 주소 검색창이 나옵니다. 현재 위치가 기본 값으로 나옵니다.</p>
                         <div class="inputKeyWord">
                             <p>키워드 입력</p>
                             <input type="text" name="keyword"  placeholder = "키워드를 입력해 주세요.   예시) 카페, 도서관, 식당 등">
                         </div>
-                        <p id="guide"> ※ 입력칸을 누르면 주소 검색창이 나옵니다. 현재 위치가 기본 값으로 나옵니다.</p>
                         <div class="location">
                             <p>위치 1 입력</p>
                             <input type="text" onclick="daumPostcode(1)" id="loc1" name="location[]">
