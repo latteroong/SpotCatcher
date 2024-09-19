@@ -50,9 +50,8 @@
                         <hr>
                         <ul id="placesList"></ul>
                         <div id="pagination"></div>
-                        <div class="input-container"></div>
+                        <div class="input-container"><p> ※ 중간 지점 간의 비율을 조절해보세요. 1부터 10까지 조절할 수 있으며 숫자가 클 수록 중심 지점이 가까워 집니다.</p></div>
                     </div>
-                    
                 </div>
                 <div class="mid">
                     <button onclick="directions()">길찾기</button>
@@ -62,7 +61,6 @@
                     </a>
                 </div>
                 <div class="bottom">
-                    <p>광고삽입</p>
                 </div>
                 
             </body>
