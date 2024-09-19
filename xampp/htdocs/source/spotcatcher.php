@@ -12,10 +12,10 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     </head>
-    <header>
+   <header>
         <a href = "spotcatcher.php">
             <p>SpotCatcher</p>
         </a>
@@ -86,16 +86,19 @@
                     <div class="Intro_explain_2" style="margin : 10px;">
                     <h4> Spot Catcher로<br>
                         약속 장소를 정해 보세요</h4>
-                        <div id="goDown"></div>
-                        <script src="js/goDowning.js"></script>
+                        <div id="goDown">
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <form id="locationForm" action="spotcatcher.php" method="post">
-                    <div class="inputKeyWord">
-                        <p>키워드 입력</p>
-                        <input type="text" name="keyword"  placeholder = "키워드를 입력해 주세요.   예시) 카페, 도서관, 식당 등">
-                    </div>
+                
                     <div id="locations">
+                    <div id="map"></div>
+                        <div class="inputKeyWord">
+                            <p>키워드 입력</p>
+                            <input type="text" name="keyword"  placeholder = "키워드를 입력해 주세요.   예시) 카페, 도서관, 식당 등">
+                        </div>
                         <p id="guide"> ※ 입력칸을 누르면 주소 검색창이 나옵니다. 현재 위치가 기본 값으로 나옵니다.</p>
                         <div class="location">
                             <p>위치 1 입력</p>
@@ -120,7 +123,7 @@
                         </tr>
                     </table>
                 </form>
-                <div id="map"></div>
+                
             </body>
             <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
             <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=2c5ea89bb07fbfafa9c6b8ebea734dfd&libraries=services,clusterer,drawing"></script>
