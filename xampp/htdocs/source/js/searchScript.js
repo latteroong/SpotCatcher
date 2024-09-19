@@ -133,17 +133,11 @@ document.getElementById('locationForm').addEventListener('submit', validateForm)
 
 updateRemoveButtons();
 
-
-// 맵 생성
-const mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
     mapOption = { 
         center: locPosition, // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨 
-}; 
-var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
-map.setDraggable(false);
-map.setZoomable(false);
-map.setKeyboardShortcuts(false);
+};
 
 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
 if (navigator.geolocation) {
@@ -165,12 +159,50 @@ if (navigator.geolocation) {
                 detailAddr = !!result[0].road_address ? result[0].road_address.address_name:"";
             }
         });
-            
+
+        setMap(locPosition);
     });
     
 } else { // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
+    
     locPosition = new kakao.maps.LatLng(33.450701, 126.570667),    
-        message = 'geolocation을 사용할수 없어요..';
+        message = 'geolocation을 사용할수 없어요..'
+        
+    // displayMarker(locPosition, message);
+    setMap(locPosition);
+}
+
+function setMap(locPosi) {
+    const staticMap = new kakao.maps.StaticMap(mapContainer, 
+        mapOption = { 
+        center: locPosi, // 지도의 중심좌표
+        level: 2 // 지도의 확대 레벨 
+    });
+}
+
+// 지도에 마커와 인포윈도우를 표시하는 함수입니다
+function displayMarker(locPosition, message) {
+
+    // 마커를 생성합니다
+    var marker = new kakao.maps.Marker({  
+        map: map, 
+        position: locPosition
+    }); 
+    
+    var iwContent = message, // 인포윈도우에 표시할 내용
+        iwRemoveable = true;
+
+    // 인포윈도우를 생성합니다
+    var infowindow = new kakao.maps.InfoWindow({
+        content : iwContent,
+        removable : iwRemoveable
+    });
+    
+    // 인포윈도우를 마커위에 표시합니다 
+    infowindow.open(map, marker);
+    
+    // 지도 중심좌표를 접속위치로 변경합니다
+    map.setCenter(locPosition);      
 }
 
 let box_observer = new ResizeObserver(entries => {
