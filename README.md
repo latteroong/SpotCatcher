@@ -2,12 +2,12 @@
 **캡스톤**
 
 ----------------------------------------------------------
-https://www.spotcatcher.kro.kr/
+https://eternal-unique-opossum.ngrok-free.app/
 
 ----------------------------------------------------------
 **무료 도메인**
 
-https://xn--220b31d95hq8o.xn--3e0b707e/
+https://dashboard.ngrok.com/get-started/setup/windows
 
 ----------------------------------------------------------
 **카카오 지도 API**
