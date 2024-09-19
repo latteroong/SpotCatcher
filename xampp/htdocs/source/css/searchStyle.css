@@ -137,6 +137,7 @@ body .Intro_explain_2{
     background-size: cover; 
     background-position: center;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 #addLocationBtn{
