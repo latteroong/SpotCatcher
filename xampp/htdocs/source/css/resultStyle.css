@@ -244,7 +244,6 @@ input[type="text"] {
 div.mid {
     position: flex;
     margin-top: 20px; /* 위쪽 공간 추가 */
-<<<<<<< Updated upstream
     z-index: 2; /* 다른 div보다 위로 올리기 */
     display: flex;
     align-items: center;
@@ -277,13 +276,10 @@ div.mid button{
     float: right;
 }
 
-
-
 .bottom{
     background:url("../img/ad_banner.jpg") ;
     height: 150px;
     background-position: center;
-=======
 }
 
 .submit {
@@ -306,7 +302,6 @@ div.mid button{
 }
 .submit-button:hover {
     background: rgb(135, 194, 161);
->>>>>>> Stashed changes
 }
 
 @media (min-width: 768px) {
