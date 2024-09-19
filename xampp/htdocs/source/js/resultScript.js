@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         
         // 제출 버튼 생성
+        const submitDiv = document.createElement('div');
+            submitDiv.className = 'submit';
         const submitButton = document.createElement('button');
         submitButton.type = 'button';
         submitButton.textContent = '제출';
@@ -66,7 +68,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const mapWrap = document.querySelector('.map_wrap');
         if (mapWrap) {
             mapWrap.appendChild(containerDiv);
-            mapWrap.appendChild(submitButton);
+            submitDiv.appendChild(submitButton);
+            mapWrap.appendChild(submitDiv);
         } else {
             console.log('map_wrap element not found');
         }

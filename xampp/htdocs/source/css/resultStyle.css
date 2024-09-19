@@ -244,6 +244,7 @@ input[type="text"] {
 div.mid {
     position: flex;
     margin-top: 20px; /* 위쪽 공간 추가 */
+<<<<<<< Updated upstream
     z-index: 2; /* 다른 div보다 위로 올리기 */
     display: flex;
     align-items: center;
@@ -282,6 +283,30 @@ div.mid button{
     background:url("../img/ad_banner.jpg") ;
     height: 150px;
     background-position: center;
+=======
+}
+
+.submit {
+    display: flex; /* 또는 display: flex; */
+    justify-content: flex-end; /* 오른쪽 정렬 */
+}
+
+.submit-button {
+    margin-left: auto;
+    text-decoration: none;
+    color: white;
+    border: 1px solid rgba(0,0,0,0.21);
+    border-bottom: 4px solid rgba(0,0,0,0.21);
+    border-radius: 4px;
+    text-shadow: 0 1px 0 rgba(0,0,0,0.15);
+    background: rgb(170, 224, 194);
+    background: linear-gradient(to bottom, rgb(118, 196, 159) 0%, #50b498 100%);
+    padding: 4px 12px;  
+    font-size: 12px;
+}
+.submit-button:hover {
+    background: rgb(135, 194, 161);
+>>>>>>> Stashed changes
 }
 
 @media (min-width: 768px) {
