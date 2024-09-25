@@ -1,0 +1,33 @@
+{% include "include/header.html" %}
+{% set keyword = data.keyword %}
+{% set location = data.location %}
+<link rel="stylesheet" href="/assets/css/resultStyle.css"/>
+    <div class="map_wrap">
+        <div id="map"></div>
+        <div id="menu_wrap" class="bg_white">
+            <div class="option">
+                <div>
+                    <form onsubmit="searchPlaces(); return false;">
+                        키워드 : <input type="text" value={{ keyword }} id="keyword" size="15"> 
+                        <button type="submit">검색하기</button> 
+                    </form>
+                </div>
+            </div>
+            <hr>
+            <ul id="placesList"></ul>
+            <div id="pagination"></div>
+        </div>
+        <div class="input-container"><p> ※ 중간 지점 간의 비율을 조절해보세요. 1부터 10까지 조절할 수 있으며 숫자가 클 수록 중심 지점이 가까워 집니다.</p></div>
+    </div>
+    <div class="mid">
+        <button onclick="directions()">길찾기</button>
+        <a id="kakao-link-btn" href="javascript:;">
+            <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                alt="카카오톡 공유 보내기 버튼" />
+        </a>
+    </div>
+
+    {% include "include/footer.html" %}
+
+    <script src="/assets/js/resultScript.js"></script>
+</html>
