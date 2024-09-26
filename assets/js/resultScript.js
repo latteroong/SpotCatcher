@@ -22,6 +22,11 @@ async function fetchData() {
     }
 }
 
+    function toggleMenu() {
+        const navMenu = document.getElementById('navMenu');
+        navMenu.classList.toggle('visible');
+    }
+
 function createInputFields(locations) {
     const containerDiv = document.querySelector(".input-container");
 
@@ -47,10 +52,10 @@ function createInputFields(locations) {
         containerDiv.appendChild(locationDiv);
     });
 
-    createSubmitButton();
+    createSubmitButton(containerDiv);
 }
 
-function createSubmitButton() {
+function createSubmitButton(containerDiv) {
     const submitDiv = document.createElement('div');
     submitDiv.className = 'submit';
     
@@ -79,6 +84,7 @@ function createSubmitButton() {
     const mapWrap = document.querySelector('.map_wrap');
     if (mapWrap) {
         submitDiv.appendChild(submitButton);
+        containerDiv.appendChild(submitDiv);
         mapWrap.appendChild(submitDiv);
     } else {
         console.log('map_wrap element not found');
