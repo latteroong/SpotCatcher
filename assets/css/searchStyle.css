@@ -5,9 +5,9 @@ body .introduce {
     background-position: center;
     background-repeat: no-repeat;
     width: 100vw;
-    height: 84vh; 
+    height: 70vh; 
     display: flex;
-    justify-content: center;
+    justify-content: left;
     align-items: center;
     text-align: center;
     min-width: 1050px;
@@ -19,7 +19,7 @@ body .introduce {
     top: 0; 
     left: 0;
     width: 100vw;
-    height: 84vh; 
+    height: 70vh; 
     opacity: 18%;
     background-color: #50b498;
     z-index: -1;
@@ -30,22 +30,25 @@ body .Intro_explain_1{
     width: 25% ;
     height: 40% ;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #fff;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
+    align-items: left;
+    justify-content: left;
+    background-color: none;
     flex-direction: column;
     margin : 30px;
-    z-index: 1;
     min-height: 270px;
     min-width: 290px;
+    color: #fff;
+
 } 
 
 body .Intro_explain_1 h4{
     text-align: left;
     padding: 0px;
-    width: 280px;
     font-size: 25px;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 40px;
 }
 
 
@@ -53,30 +56,12 @@ body .Intro_explain_1 p{
     font-size: 20px;
     text-align: left;
     padding: 0px;
-    width: 280px;
+    font-size: 20px;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
     
 }
-body .Intro_explain_2{
-    font-size: 25px;
-    align-items: center;
-    width: 25%  ;
-    height: 40%  ;
-    display: flex;
-    align-items: center;
-    background-color: #fff;
-    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.5);
-    flex-direction: column;
-    margin : 30px;
-    z-index: 1;
-    min-height: 270px;
-    min-width: 290px;
-}
-
-.Intro_explain_2 h4{
-    text-align: center;
-    padding: none;
-    margin-top: 100px;
-} 
 
 .mid-point{
     font-family: "Black Han Sans", system-ui;
@@ -87,14 +72,15 @@ body .Intro_explain_2{
     align-items: center;
 }
 
-#goDown {
-    width : 50px;
-    height : 50px;
-    background-image: url('../img/arrow_down.png');
-    background-size: cover; 
-    background-position: center;
-    background-repeat: no-repeat;
-    cursor: pointer;
+.middleIs{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    padding-top: 40px;
+    font-family: "Gothic A1", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 45px;
 }
 
 #map {
@@ -111,17 +97,15 @@ body .Intro_explain_2{
     height: 550px;
     display: grid;
     min-width: 1205px;
-    margin-top: 120px;
     align-items: center;
     justify-content: center;
     position: relative;
-    z-index: 1;
 
 }
 
 #locations{
     flex-direction: column; 
-    box-shadow: 5px 5px 15px #50b498; 
+    box-shadow: 0.5px 0.5px 2px 2px #bdbdbd; 
     border-radius: 30px; 
     width:1250px; 
     height:600px;
@@ -161,6 +145,7 @@ table{
     display: flex;
     align-items: center;
     justify-content: center;
+    padding-bottom: 10px;
 }
 
 table button{
@@ -197,8 +182,9 @@ table button{
 }
 
 .removeLocationBtn{
-    width: 60px;
+    width: 100px;
     height : 40px;
+    border-radius: 15px;
 }
 
 @media (max-width: 1050px){
