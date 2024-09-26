@@ -196,10 +196,10 @@ input[type="text"] {
     border:3px #50b498 solid;
 }
 
-#map{
+/* #map{
     border:3px #50b498 solid;
     border-radius: 10px;
-}
+} */
 
 
 .input-container{
@@ -233,7 +233,8 @@ input[type="text"] {
 .weightValues input[type="number"]{
     width: 300px;
     height: 30px;
-    border: #50b498 3px solid;
+    border: #777 1px solid;
+    border-radius: 10px;
     align-items: center;
     text-align: center;
     margin: 3px;
