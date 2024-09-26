@@ -130,8 +130,8 @@ body .Intro_explain_1 p{
 .location input[type = "text"]{
     width : 1000px;
     height: 40px;
-     margin-bottom:10px; 
-     border : solid 3px #50b498;
+    margin-bottom:10px; 
+    border : solid 3px #50b498;
 }
 
 .inputKeyWord input[type = "text"]{
@@ -207,14 +207,11 @@ table button{
 }
 
 
-
-
 @media (min-width: 768px) {
     #map {
         /* width: 1000px; */
         margin: 0 auto;
     }
-    
 }
 
 

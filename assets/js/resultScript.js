@@ -132,10 +132,17 @@ function setBounds() {
 
 function searchPlaces() {
 
-    let keyword = document.getElementById('keyword').value;
+    keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        Swal.fire({
+            title: "알림",
+            text: "키워드를 입력해주세요!", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
         return false;
     }
 
@@ -283,6 +290,9 @@ function placesSearchCB (data, status, pagination) {
     if (status === kakao.maps.services.Status.OK && data.length >= 3) {
         displayMarker(data);
         displayPagination(pagination);
+        research = 0;
+        setRadius = 100;
+        return;
     } else if (research < 4){
         research += 1;
         console.log("다시 서치");
@@ -294,21 +304,46 @@ function placesSearchCB (data, status, pagination) {
         ps.keywordSearch(keyword, placesSearchCB, options);
     } else {
         // 검색결과가 없습니다.
-        alert("키워드 {{keyword}} 검색결과가 없습니다.");
-        history.back();  
+        research = 0;
+        Swal.fire({
+            title: "알림",
+            text: "키워드 {{keyword}} 검색결과가 없습니다.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        }).then(() => {
+            history.back();  
+        });
     }
 }
 
 // 키워드 검색 완료 시 호출되는 콜백함수 입니다
 function placesSearchCBbutton (data, status, pagination) {
-    if (status === kakao.maps.services.Status.OK) {
+    if (status === kakao.maps.services.Status.OK && data.length >= 3) {
         displayMarker(data);
         displayPagination(pagination);
-    } else if (status === kakao.maps.services.Status.ZERO_RESULT) {
-        alert('검색 결과가 존재하지 않습니다.');
+        research = 0;
+        setRadius = 100;
         return;
-    } else if (status === kakao.maps.services.Status.ERROR) {
-        alert('검색 결과 중 오류가 발생했습니다.');
+    } else if (research < 4){
+        research += 1;
+        console.log("다시 서치");
+        setRadius += 500;
+        options = {
+            location: coords,
+            radius: setRadius,
+        };
+        ps.keywordSearch(keyword, placesSearchCBbutton, options);
+    } else {
+        Swal.fire({
+            title: "알림",
+            text: "검색 결과가 존재하지 않습니다.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
         return;
     }
 }
@@ -376,8 +411,16 @@ async function searchLoc() {
                 infowindow.open(map, marker);
             } else {
                 // 검색결과가 없습니다.
-                alert((i+1) + "번째 주소 검색결과가 없습니다.");
-                history.back();                     
+                Swal.fire({
+                    title: "알림",
+                    text: `${i+1} 번째 주소 검색결과가 없습니다.`, 
+                    icon: "info", //"info,success,warning,error" 중 택1
+                    iconColor: '#009900',
+                    confirmButtonColor: '#50b498',
+                    confirmButtonText: "확인"
+                }).then(() => {
+                    history.back();
+                });
             }
         });
     }
@@ -433,7 +476,14 @@ function getAvgPoint(arr) {
 // 길찾기
 function directions() {
     if (clickId == "") {
-        alert("찾을 위치를 클릭해주세요.");
+        Swal.fire({
+            title: "알림",
+            text: "찾을 위치를 클릭해주세요.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
     } else {
         location.href=`https://map.kakao.com/link/to/${clickId}`;
     }
@@ -447,7 +497,14 @@ const kakaoShareBtn = document.getElementById('kakao-link-btn');
 kakaoShareBtn.addEventListener('click', function() {
     if (typeof Kakao !== 'undefined') {
         if (clickLocName == "") {
-            alert("공유할 장소를 선택해 주세요!");
+            Swal.fire({
+                title: "알림",
+                text: "공유할 장소를 선택해 주세요!", 
+                icon: "info", //"info,success,warning,error" 중 택1
+                iconColor: '#009900',
+                confirmButtonColor: '#50b498',
+                confirmButtonText: "확인"
+            });
         } else {
             Kakao.Share.createCustomButton({
                 container: '#kakao-link-btn',
