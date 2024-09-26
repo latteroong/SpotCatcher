@@ -8,6 +8,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: none;
 }
 
 header a{
@@ -23,6 +24,7 @@ text-decoration: unset;
     background:url("../img/ad_banner.jpg") ;
     height: 150px;
     background-position: center;
+    margin-top: 150px;
 }
 
 
