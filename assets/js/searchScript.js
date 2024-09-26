@@ -3,6 +3,7 @@ let detailAddr = ""
 let geocoder = new kakao.maps.services.Geocoder();
 let width = 500;
 let height = 600;
+let map;
 function searchDetailAddrFromCoords(coords, callback) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
@@ -148,11 +149,8 @@ if (navigator.geolocation) {
         var lat = position.coords.latitude, // 위도
             lon = position.coords.longitude; // 경도
         
-        locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            message = '<div style="padding:5px;">현재 위치</div>'; // 인포윈도우에 표시될 내용입니다
+        locPosition = new kakao.maps.LatLng(lat, lon);
         
-        // // 마커와 인포윈도우를 표시합니다
-        // displayMarker(locPosition, message);
         
         searchDetailAddrFromCoords(locPosition, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
@@ -173,43 +171,20 @@ if (navigator.geolocation) {
 }
 
 function setMap(locPosi) {
-    const staticMap = new kakao.maps.StaticMap(mapContainer, 
+    map = new kakao.maps.Map(mapContainer, 
         mapOption = { 
         center: locPosi, // 지도의 중심좌표
         level: 2 // 지도의 확대 레벨 
     });
-}
-
-// 지도에 마커와 인포윈도우를 표시하는 함수입니다
-function displayMarker(locPosition, message) {
-
-    // 마커를 생성합니다
-    var marker = new kakao.maps.Marker({  
-        map: map, 
-        position: locPosition
-    }); 
-    
-    var iwContent = message, // 인포윈도우에 표시할 내용
-        iwRemoveable = true;
-
-    // 인포윈도우를 생성합니다
-    var infowindow = new kakao.maps.InfoWindow({
-        content : iwContent,
-        removable : iwRemoveable
-    });
-    
-    // 인포윈도우를 마커위에 표시합니다 
-    infowindow.open(map, marker);
-    
-    // 지도 중심좌표를 접속위치로 변경합니다
-    map.setCenter(locPosition);      
+    map.setDraggable(false);
+    map.setZoomable(false);
 }
 
 let box_observer = new ResizeObserver(entries => {
     for (let entry of entries) {
       // 감시 대상의 크기가 변화했을 때 실행할 코드
       console.log('사이즈 변했음!');
-      map.setCenter(locPosition); 
+      setMap(locPosition); 
     }
   });
 
