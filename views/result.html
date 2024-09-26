@@ -19,12 +19,24 @@
         </div>
         <div class="input-container"><p> ※ 중간 지점 간의 비율을 조절해보세요. 1부터 10까지 조절할 수 있으며 숫자가 클 수록 중심 지점이 가까워 집니다.</p></div>
     </div>
-    <div class="mid">
+    <!-- <div class="mid">
         <button onclick="directions()">길찾기</button>
         <a id="kakao-link-btn" href="javascript:;">
             <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
                 alt="카카오톡 공유 보내기 버튼" />
         </a>
+    </div> -->
+    <div class="mid">
+        <div class="navi" onclick="toggleMenu()">▼</div>
+        <nav id="navMenu" class="hidden">
+            <ul>
+                <li><button onclick="directions()">길찾기</button></li>
+                <li><a id="kakao-link-btn" href="javascript:;">
+                    <img src="https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png"
+                        alt="카카오톡 공유 보내기 버튼" />
+                </a></li>
+            </ul>
+        </nav>
     </div>
 
     {% include "include/footer.html" %}
