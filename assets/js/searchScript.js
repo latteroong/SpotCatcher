@@ -9,17 +9,17 @@ function searchDetailAddrFromCoords(coords, callback) {
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
 
-document.getElementById('goDown').addEventListener('click', function() {
-    // .inputKeyWord 클래스를 가진 div 요소를 선택
-    const inputDiv = document.querySelector('.inputKeyWord');
-    // .show 클래스를 추가하여 애니메이션 시작
-    inputDiv.classList.add('show');
-    // 애니메이션이 끝난 후 input에 포커스
-    setTimeout(() => {
-        const input = inputDiv.querySelector('input');
-        input.focus();
-    }, 500); // 애니메이션 시간과 일치하도록 설정 (여기서는 500ms)
-});
+// document.getElementById('goDown').addEventListener('click', function() {
+//     // .inputKeyWord 클래스를 가진 div 요소를 선택
+//     const inputDiv = document.querySelector('.inputKeyWord');
+//     // .show 클래스를 추가하여 애니메이션 시작
+//     inputDiv.classList.add('show');
+//     // 애니메이션이 끝난 후 input에 포커스
+//     setTimeout(() => {
+//         const input = inputDiv.querySelector('input');
+//         input.focus();
+//     }, 500); // 애니메이션 시간과 일치하도록 설정 (여기서는 500ms)
+// });
 
 function daumPostcode(num) {
     new daum.Postcode({
@@ -80,7 +80,7 @@ document.getElementById('addLocationBtn').addEventListener('click', function() {
         addButtons.disabled = false;
         newLocationDiv.innerHTML = `
             <p>위치 ${locationCount} 입력</p>
-            <input type="text" onclick="daumPostcode(${locationCount})" id="loc${locationCount}" name="location[]">
+            <input type="text" onclick="daumPostcode(${locationCount})" id="loc${locationCount}" name="locations">
             <button type="button" class="removeLocationBtn">삭제</button>
         `;
 
