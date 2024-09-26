@@ -207,12 +207,16 @@ input[type="text"] {
     border-top-left-radius: 10px;  /* 왼쪽 상단 모서리 둥글게 */
     border-top-right-radius: 10px;
     overflow: auto;
-    display: grid;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
-    margin-bottom: 20px; /* 아래쪽 공간 추가 */
+    align-items: center;/* 아래쪽 공간 추가 */
+    width: auto;
     height: 250px;
     max-height: 250px;
+    border : none;
+    box-shadow: 0.5px 0.5px 2px 2px #bdbdbd;
+    margin: 30px;
 }
 
 .input-container p{
@@ -243,30 +247,37 @@ input[type="text"] {
 
 
 div.mid {
-    position: flex;
-    margin-top: 20px; /* 위쪽 공간 추가 */
-    z-index: 2; /* 다른 div보다 위로 올리기 */
+    /* margin-top: -250px; 위쪽 공간 추가 */
+    z-index: 100; /* 다른 div보다 위로 올리기 */
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 15px;
-    border: 1px solid;
+    border-radius: 50px;
+    background-color: #50b498;
     width: 250px;
     max-height: 80px;
+    
 }
 
 div.mid button{
-    width: 55px;
-    height: 55px;
+    width: 44px;
+    height: 44px;
     border-radius: 100px;
     margin: 5px;
     font-size: 10px;
+    border: none;
 }
 
 .mid #kakao-link-btn{
     width: 55px;
     height: 55px;
-    border-radius: 100px;
+    border-radius: 200px;
+}
+
+.mid #kakao-link-btn img{
+    width: 44px;
+    height: 44px;
+    border-radius: 200px;
 }
 
 .submit-button{
@@ -298,6 +309,31 @@ div.mid button{
 .submit-button:hover {
     background: rgb(135, 194, 161);
 }
+
+nav {
+    display: none; /* 기본적으로 숨김 */
+    width: 30px;
+    height: 30px;
+    border-radius: 100px;
+}
+
+nav.visible {
+    display: flex; /* 보여주기 */
+    width: 250px;
+    height: 50px;
+}
+
+nav ul {
+    display: flex; /* 수평 정렬 */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+nav li {
+    margin-left: 20px; /* 항목 간 간격 */
+}
+
 
 @media (min-width: 768px) {
     #map {
