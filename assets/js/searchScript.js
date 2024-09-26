@@ -1,5 +1,5 @@
 let locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-let detailAddr = ""
+let detailAddr = "123"
 let geocoder = new kakao.maps.services.Geocoder();
 let width = 500;
 let height = 600;
@@ -154,7 +154,13 @@ if (navigator.geolocation) {
         
         searchDetailAddrFromCoords(locPosition, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
-                detailAddr = !!result[0].road_address ? result[0].road_address.address_name:"";
+                if (!!result[0].road_address) {
+                    detailAddr = result[0].road_address.address_name;
+                } else if (!!result[0].address) {
+                    detailAddr = result[0].address.address_name;
+                } else {
+                    detailAddr = "";
+                }
             }
         });
 
