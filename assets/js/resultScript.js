@@ -85,7 +85,6 @@ function createSubmitButton(containerDiv) {
     if (mapWrap) {
         submitDiv.appendChild(submitButton);
         containerDiv.appendChild(submitDiv);
-        mapWrap.appendChild(submitDiv);
     } else {
         console.log('map_wrap element not found');
     }
