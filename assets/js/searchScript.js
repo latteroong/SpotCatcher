@@ -61,28 +61,42 @@ function updateRemoveButtons() {
 }
 
 document.getElementById('addLocationBtn').addEventListener('click', function() {
+    const addButtons = document.querySelectorAll('.addLocationBtn');
     const newLocationDiv = document.createElement('div');
     newLocationDiv.className = 'location';
 
     const locationCount = document.querySelectorAll('.location').length + 1;
+    if (locationCount > 8) {
+        addButtons.disabled = true;
+        Swal.fire({
+            title: "알림",
+            text: "위치는 최대 8개 까지 입력 가능합니다.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
+    } else {
+        addButtons.disabled = false;
+        newLocationDiv.innerHTML = `
+            <p>위치 ${locationCount} 입력</p>
+            <input type="text" onclick="daumPostcode(${locationCount})" id="loc${locationCount}" name="location[]">
+            <button type="button" class="removeLocationBtn">삭제</button>
+        `;
 
-    newLocationDiv.innerHTML = `
-        <p>위치 ${locationCount} 입력</p>
-        <input type="text" onclick="daumPostcode(${locationCount})" id="loc${locationCount}" name="location[]">
-        <button type="button" class="removeLocationBtn">삭제</button>
-    `;
+        document.getElementById('locations').appendChild(newLocationDiv);
 
-    document.getElementById('locations').appendChild(newLocationDiv);
+        // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가합니다.
+        newLocationDiv.querySelector('.removeLocationBtn').addEventListener('click', function() {
+            newLocationDiv.remove();
+            updateLocationLabels();
+            updateRemoveButtons();
+        });
 
-    // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가합니다.
-    newLocationDiv.querySelector('.removeLocationBtn').addEventListener('click', function() {
-        newLocationDiv.remove();
         updateLocationLabels();
         updateRemoveButtons();
-    });
-
-    updateLocationLabels();
-    updateRemoveButtons();
+    }
+    
 });
 
 // 기존의 삭제 버튼에 이벤트 리스너를 추가합니다.
@@ -110,7 +124,7 @@ function validateForm(event) {
     locationInputs.forEach(function(input) {
         if (input.value.trim() === '') {
             isValid = false;
-            input.style.borderColor = 'red';
+            input.style.borderColor = '#E3463D';
         } else {
             input.style.borderColor = '';
         }
@@ -118,13 +132,20 @@ function validateForm(event) {
 
     if (keywordInputs.value.trim() === '') {
         isValid = false;
-        keywordInputs.style.borderColor = 'red';
+        keywordInputs.style.borderColor = '#E3463D';
     } else {
         keywordInputs.style.borderColor = '';
     }
 
     if (!isValid) {
-        alert('모든 위치 입력 필드를 채워주세요.');
+        Swal.fire({
+            title: "알림",
+            text: "모든 위치 입력 필드를 채워주세요.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
         event.preventDefault();
     }
 }
@@ -190,7 +211,7 @@ let box_observer = new ResizeObserver(entries => {
     for (let entry of entries) {
       // 감시 대상의 크기가 변화했을 때 실행할 코드
       console.log('사이즈 변했음!');
-      setMap(locPosition); 
+      map.setCenter(locPosition); 
     }
   });
 

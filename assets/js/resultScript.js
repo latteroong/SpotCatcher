@@ -135,7 +135,14 @@ function searchPlaces() {
     keyword = document.getElementById('keyword').value;
 
     if (!keyword.replace(/^\s+|\s+$/g, '')) {
-        alert('키워드를 입력해주세요!');
+        Swal.fire({
+            title: "알림",
+            text: "키워드를 입력해주세요!", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
         return false;
     }
 
@@ -298,8 +305,16 @@ function placesSearchCB (data, status, pagination) {
     } else {
         // 검색결과가 없습니다.
         research = 0;
-        alert("키워드 {{keyword}} 검색결과가 없습니다.");
-        history.back();  
+        Swal.fire({
+            title: "알림",
+            text: "키워드 {{keyword}} 검색결과가 없습니다.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        }).then(() => {
+            history.back();  
+        });
     }
 }
 
@@ -321,7 +336,14 @@ function placesSearchCBbutton (data, status, pagination) {
         };
         ps.keywordSearch(keyword, placesSearchCBbutton, options);
     } else {
-        alert('검색 결과가 존재하지 않습니다.');
+        Swal.fire({
+            title: "알림",
+            text: "검색 결과가 존재하지 않습니다.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
         return;
     }
 }
@@ -389,8 +411,16 @@ async function searchLoc() {
                 infowindow.open(map, marker);
             } else {
                 // 검색결과가 없습니다.
-                alert((i+1) + "번째 주소 검색결과가 없습니다.");
-                history.back();                     
+                Swal.fire({
+                    title: "알림",
+                    text: `${i+1} 번째 주소 검색결과가 없습니다.`, 
+                    icon: "info", //"info,success,warning,error" 중 택1
+                    iconColor: '#009900',
+                    confirmButtonColor: '#50b498',
+                    confirmButtonText: "확인"
+                }).then(() => {
+                    history.back();
+                });
             }
         });
     }
@@ -446,7 +476,14 @@ function getAvgPoint(arr) {
 // 길찾기
 function directions() {
     if (clickId == "") {
-        alert("찾을 위치를 클릭해주세요.");
+        Swal.fire({
+            title: "알림",
+            text: "찾을 위치를 클릭해주세요.", 
+            icon: "info", //"info,success,warning,error" 중 택1
+            iconColor: '#009900',
+            confirmButtonColor: '#50b498',
+            confirmButtonText: "확인"
+        });
     } else {
         location.href=`https://map.kakao.com/link/to/${clickId}`;
     }
@@ -460,7 +497,14 @@ const kakaoShareBtn = document.getElementById('kakao-link-btn');
 kakaoShareBtn.addEventListener('click', function() {
     if (typeof Kakao !== 'undefined') {
         if (clickLocName == "") {
-            alert("공유할 장소를 선택해 주세요!");
+            Swal.fire({
+                title: "알림",
+                text: "공유할 장소를 선택해 주세요!", 
+                icon: "info", //"info,success,warning,error" 중 택1
+                iconColor: '#009900',
+                confirmButtonColor: '#50b498',
+                confirmButtonText: "확인"
+            });
         } else {
             Kakao.Share.createCustomButton({
                 container: '#kakao-link-btn',
