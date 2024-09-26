@@ -10,6 +10,7 @@ router.post('/', (req, res) => {
 
 router.get('/', (req, res) => {
     res.json({
+        locName: JSON.parse(dataset.locName),
         keyword: dataset.keyword,
         locations: dataset.locations
     });

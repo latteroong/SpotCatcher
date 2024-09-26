@@ -1,27 +1,16 @@
 let locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
-let detailAddr = "123"
+let detailAddr = ""
 let geocoder = new kakao.maps.services.Geocoder();
 let width = 500;
 let height = 600;
 let map;
+
 function searchDetailAddrFromCoords(coords, callback) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
     geocoder.coord2Address(coords.getLng(), coords.getLat(), callback);
 }
 
-// document.getElementById('goDown').addEventListener('click', function() {
-//     // .inputKeyWord 클래스를 가진 div 요소를 선택
-//     const inputDiv = document.querySelector('.inputKeyWord');
-//     // .show 클래스를 추가하여 애니메이션 시작
-//     inputDiv.classList.add('show');
-//     // 애니메이션이 끝난 후 input에 포커스
-//     setTimeout(() => {
-//         const input = inputDiv.querySelector('input');
-//         input.focus();
-//     }, 500); // 애니메이션 시간과 일치하도록 설정 (여기서는 500ms)
-// });
-
-function daumPostcode(num) {
+function daumPostcode(element) {
     new daum.Postcode({
         width: width, //생성자에 크기 값을 명시적으로 지정해야 합니다.
         height: height,
@@ -40,7 +29,7 @@ function daumPostcode(num) {
             }
             
             // 주소 정보를 해당 필드에 넣는다.
-            document.getElementById("loc"+num).value = addr;
+            element.value = addr;
         }
     }).open({
         left: (window.screen.width / 2) - (width / 2),
@@ -59,6 +48,41 @@ function updateRemoveButtons() {
         removeButtons.forEach(button => button.disabled = false);
     }
 }
+// 위치 텍스트 클릭 시 수정 가능하게 하기
+async function makeLocationEditable(location) {
+    // 현재 텍스트 값을 받아옴
+    const currentValue = location.textContent;
+
+    // 입력창을 생성
+    const { value: inputPrompt } = await Swal.fire({
+        title: "별명을 지정하세요.",
+        input: "text",
+        inputPlaceholder: currentValue,
+        showCancelButton: true,
+        icon: "info", //"info,success,warning,error" 중 택1
+        iconColor: '#009900',
+        confirmButtonColor: '#50b498',
+        confirmButtonText: "확인"
+    });
+
+    // 사용자가 입력한 값을 텍스트로 설정
+    if (inputPrompt) {
+        location.textContent = inputPrompt;
+    }
+}
+
+// 초기 위치 텍스트에 클릭 이벤트 추가
+document.querySelectorAll('.locText').forEach((element, index) => {
+    element.onclick = function() {
+        makeLocationEditable(element);
+    };
+});
+// 초기 인풋칸에 클릭 이벤트 추가
+document.querySelectorAll('.location input[type="text"]').forEach(input => {
+    input.onclick = function(event) {
+        daumPostcode(input);
+    };
+});
 
 document.getElementById('addLocationBtn').addEventListener('click', function() {
     const addButtons = document.querySelectorAll('.addLocationBtn');
@@ -79,8 +103,8 @@ document.getElementById('addLocationBtn').addEventListener('click', function() {
     } else {
         addButtons.disabled = false;
         newLocationDiv.innerHTML = `
-            <p>위치 ${locationCount} 입력</p>
-            <input type="text" onclick="daumPostcode(${locationCount})" id="loc${locationCount}" name="locations">
+            <p class="locText" style="cursor: pointer;">위치 ${locationCount}</p>
+            <input type="text" name="locations">
             <button type="button" class="removeLocationBtn">삭제</button>
         `;
 
@@ -89,11 +113,21 @@ document.getElementById('addLocationBtn').addEventListener('click', function() {
         // 새로 추가된 삭제 버튼에 이벤트 리스너를 추가합니다.
         newLocationDiv.querySelector('.removeLocationBtn').addEventListener('click', function() {
             newLocationDiv.remove();
-            updateLocationLabels();
             updateRemoveButtons();
         });
+        // 위치 텍스트에 클릭 이벤트 갱신
+        document.querySelectorAll('.locText').forEach((element, index) => {
+            element.onclick = function() {
+                makeLocationEditable(element);
+            };
+        });
+        // 인풋칸에 클릭 이벤트 갱신
+        document.querySelectorAll('.location input[type="text"]').forEach(input => {
+            input.onclick = function(event) {
+                daumPostcode(input);
+            };
+        });
 
-        updateLocationLabels();
         updateRemoveButtons();
     }
     
@@ -103,17 +137,10 @@ document.getElementById('addLocationBtn').addEventListener('click', function() {
 document.querySelectorAll('.removeLocationBtn').forEach(function(button) {
     button.addEventListener('click', function() {
         button.parentElement.remove();
-        updateLocationLabels();
         updateRemoveButtons();
     });
 });
 
-// 위치 라벨을 업데이트하는 함수
-function updateLocationLabels() {
-    document.querySelectorAll('.location').forEach(function(locationDiv, index) {
-        locationDiv.querySelector('p').textContent = `위치 ${index + 1} 입력`;
-    });
-}
 
 // 폼 검증 함수
 function validateForm(event) {
@@ -151,7 +178,35 @@ function validateForm(event) {
 }
 
 // 폼 제출 이벤트에 검증 함수를 연결합니다.
-document.getElementById('locationForm').addEventListener('submit', validateForm);
+document.getElementById('locationForm').addEventListener('submit',  function(event) {
+    event.preventDefault();
+    // 모든 locText 클래스의 p 태그 선택
+    const locTexts = document.querySelectorAll('.locText');
+    const values = [];
+    locTexts.forEach(p => {
+        values.push(p.textContent);
+    });
+
+    // 텍스트 값을 input 요소에 저장
+    const keywordInput = document.createElement('input');
+    keywordInput.type = 'hidden';
+    keywordInput.name = 'locName'; // 서버에 전송할 키 이름
+    keywordInput.value = JSON.stringify(values); // p 태그의 텍스트 값
+
+    // 폼에 추가
+    this.appendChild(keywordInput);
+    validateForm();
+    // 폼 제출
+    this.submit(); // 폼을 제출합니다
+    
+    // 모든 히든 인풋 박스를 선택합니다.
+    const hiddenInputs = document.querySelectorAll('input[type="hidden"]');
+
+    // 선택한 인풋 박스를 반복하며 삭제합니다.
+    hiddenInputs.forEach(input => {
+        input.parentNode.removeChild(input);
+    });
+});
 
 updateRemoveButtons();
 
@@ -175,9 +230,9 @@ if (navigator.geolocation) {
         
         searchDetailAddrFromCoords(locPosition, function(result, status) {
             if (status === kakao.maps.services.Status.OK) {
-                if (!!result[0].road_address) {
+                if (result[0].road_address) {
                     detailAddr = result[0].road_address.address_name;
-                } else if (!!result[0].address) {
+                } else if (result[0].address) {
                     detailAddr = result[0].address.address_name;
                 } else {
                     detailAddr = "";

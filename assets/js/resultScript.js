@@ -11,9 +11,11 @@ async function fetchData() {
         const data = await response.json();
         keyword = data.keyword;
         locations = data.locations;
+        locName = data.locName;
 
         console.log('Locations:', locations); // ["서울", "부산", "대구"]
         console.log('Keyword:', keyword);     // 예제 키워드
+        console.log('locName:', locName);
 
         setMarker();
         createInputFields(locations);
@@ -35,7 +37,7 @@ function createInputFields(locations) {
         locationDiv.className = 'weightValues';
 
         const addressLabel = document.createElement('span');
-        addressLabel.textContent = index + 1;
+        addressLabel.textContent = locName[index];
         addressLabel.className = 'address-label';
 
         const inputBox = document.createElement('input');
@@ -203,7 +205,7 @@ function displayMarker(places) {
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
     let el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
+    itemStr = '<span class="markerbg marker_' + (index) + '"></span>' +
                 '<div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
 
@@ -411,7 +413,7 @@ async function searchLoc() {
 
                 // 인포윈도우로 장소에 대한 설명을 표시합니다
                 let infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">' + (i+1) + '</div>'
+                    content: '<div style="width:150px;text-align:center;padding:6px 0;">' + (locName[i]) + '</div>'
                 });
                 infowindow.open(map, marker);
             } else {
