@@ -95,8 +95,9 @@ body .Intro_explain_1 p{
     border: none;
     width: 98.5vw;
     height: 550px;
-    display: grid;
-    min-width: 1205px;
+    display: flex;
+    flex-direction: column;
+    /* min-width: 1205px; */
     align-items: center;
     justify-content: center;
     position: relative;
@@ -130,8 +131,8 @@ body .Intro_explain_1 p{
 .location input[type = "text"]{
     width : 1000px;
     height: 40px;
-    margin-bottom:10px; 
-    border : solid 3px #50b498;
+     margin-bottom:10px; 
+     border : solid 3px #50b498;
 }
 
 .inputKeyWord input[type = "text"]{
@@ -185,19 +186,32 @@ table button{
     width: 100px;
     height : 40px;
     border-radius: 15px;
+    border: none;
+    background-color: #85d4bd;
+    color: white;
+    cursor: pointer;
 }
 
-@media (max-width: 1050px){
-    div.Intro_explain_1 {
-        display: none;
-    }
-    div.Intro_explain_2{
-        width: 450px;
-        height: 300px;
-        display: flex;
-        align-items: center;
-        text-align: center;
-    }
+#submitBtn {
+    background-color: white; /* 기본 배경색 */
+    transition: background-color 0.3s ease; /* 부드러운 전환 */
+    cursor: pointer;
+}
+
+#submitBtn:active {
+    background-color: #50b498; /* 눌렀을 때 배경색 */
+    color: #fff;
+}
+
+#addLocationBtn {
+    background-color: white; /* 기본 배경색 */
+    transition: background-color 0.1s ease; /* 부드러운 전환 */
+    cursor: pointer;
+}
+
+#addLocationBtn:active {
+    background-color: #50b498; /* 눌렀을 때 배경색 */
+    color: #fff;
 }
 
 @media (max-height: 310px){
@@ -206,12 +220,20 @@ table button{
     }
 }
 
+@media (max-width: 1250px){
+    #locations{
+        width: 800px;
+    }
+
+}
+
 
 @media (min-width: 768px) {
     #map {
         /* width: 1000px; */
         margin: 0 auto;
     }
+    
 }
 
 
