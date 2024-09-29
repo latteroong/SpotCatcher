@@ -1,15 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const controller =  require('../controller/mainController');
 
-router.get('/', (req, res) => {
-    console.log('첫페이지 접속됨.');
-
-    let fruits = ['apple', 'banana', '복숭아', '오렌지'];
-    const sendData = {
-        name: '한병일',
-        fruits
-    };
-    res.render('index', sendData);
-})
+router.get('/', controller.main);
 
 module.exports = router;

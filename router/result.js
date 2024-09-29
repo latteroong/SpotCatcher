@@ -1,19 +1,9 @@
 const express = require('express');
 const router = express.Router();
-let dataset;
+const controller =  require('../controller/resultController');
 
-router.post('/', (req, res) => {
-    console.log(req.body);
-    dataset = req.body
-    res.render('result', {data: dataset});
-});
+router.post('/', controller.postResult);
 
-router.get('/', (req, res) => {
-    res.json({
-        locName: JSON.parse(dataset.locName),
-        keyword: dataset.keyword,
-        locations: dataset.locations
-    });
-});
+router.get('/', controller.getResult);
 
 module.exports = router;
