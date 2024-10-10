@@ -10,7 +10,6 @@ body .introduce {
     justify-content: left;
     align-items: center;
     text-align: center;
-    min-width: 1050px;
 }
 
 .introduce::before {
@@ -44,11 +43,12 @@ body .Intro_explain_1{
 body .Intro_explain_1 h4{
     text-align: left;
     padding: 0px;
-    font-size: 25px;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 800;
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
     font-style: normal;
     font-size: 40px;
+    margin: 5px;
 }
 
 
@@ -57,10 +57,24 @@ body .Intro_explain_1 p{
     text-align: left;
     padding: 0px;
     font-size: 20px;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 500;
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
     font-style: normal;
-    
+    margin: 5px;
+}
+
+.Intro_explain_1{
+    opacity: 0; /* 초기 상태: 투명 */
+    transform: translateY(20px); /* 아래에서 시작 */
+    animation: fadeInUp 0.8s forwards; /* 애니메이션 적용 */
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1; /* 최종 상태: 불투명 */
+        transform: translateY(0); /* 원래 위치로 이동 */
+    }
 }
 
 .mid-point{
@@ -77,11 +91,23 @@ body .Intro_explain_1 p{
     text-align: center;
     justify-content: center;
     padding-top: 40px;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 500;
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
     font-style: normal;
     font-size: 45px;
+    margin: 10px;
+    opacity: 0; /* 초기 상태: 투명 */
+    transform: translateY(20px); /* 아래에서 시작 */
+    animation: fadeInUping 0.8s forwards; /* 애니메이션 적용 */
 }
+@keyframes fadeInUping {
+    to {
+        opacity: 1; /* 최종 상태: 불투명 */
+        transform: translateY(0); /* 원래 위치로 이동 */
+    }
+}
+
 
 #map {
     width:98.5vw; 
@@ -123,9 +149,14 @@ body .Intro_explain_1 p{
     color: gray;
     font-size: 15px;
     margin-bottom: 0px;
-    font-family: "Gothic A1", sans-serif;
-    font-weight: 500;
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
     font-style: normal;
+}
+
+.locText{
+    margin: 5px;
 }
 
 .location input[type = "text"]{
@@ -140,6 +171,10 @@ body .Intro_explain_1 p{
     height: 40px;
     margin-bottom:10px; 
     border : solid 3px #50b498;
+}
+
+.inputKeyWord p{
+    margin: 10px;
 }
 
 table{
@@ -221,6 +256,20 @@ table button{
     background-color: #50b498; /* 눌렀을 때 배경색 */
     color: #fff;
 }
+
+#locations{
+    opacity: 0; /* 초기 상태: 투명 */
+    transform: translateY(20px); /* 아래에서 시작 */
+    animation: fadeInUpper 0.8s forwards; /* 애니메이션 적용 */
+}
+
+@keyframes fadeInUpper {
+    to {
+        opacity: 1; /* 최종 상태: 불투명 */
+        transform: translateY(0); /* 원래 위치로 이동 */
+    }
+}
+
 
 @media (max-width: 550px)or(max-height: 310px){
     div.Intro_explain_1 p{
