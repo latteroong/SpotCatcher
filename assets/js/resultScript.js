@@ -4,7 +4,7 @@ let locations;
 
 async function fetchData() {
     try {
-        const response = await fetch('http://localhost/result');
+        const response = await fetch('https://eternal-unique-opossum.ngrok-free.app/result');
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
@@ -21,6 +21,21 @@ async function fetchData() {
         createInputFields(locations);
     } catch (error) {
         console.error('Fetch error:', error);
+        const response = await fetch('http://localhost/result');
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        keyword = data.keyword;
+        locations = data.locations;
+        locName = data.locName;
+
+        console.log('Locations:', locations); // ["서울", "부산", "대구"]
+        console.log('Keyword:', keyword);     // 예제 키워드
+        console.log('locName:', locName);
+
+        setMarker();
+        createInputFields(locations);
     }
 }
 
