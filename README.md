@@ -7,6 +7,8 @@ https://eternal-unique-opossum.ngrok-free.app/
 ----------------------------------------------------------
 **무료 도메인**
 
+(ngrok http --url=eternal-unique-opossum.ngrok-free.app 80)
+
 https://dashboard.ngrok.com/get-started/setup/windows
 
 ----------------------------------------------------------
