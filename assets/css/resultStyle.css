@@ -169,6 +169,7 @@ body .header {
 #map {
     width: 98vw;
     height: 80vh;
+    border: #50b498 3px solid;
 }
 
 input[type="text"] {
@@ -194,6 +195,7 @@ input[type="text"] {
 
 #menu_wrap{
     border:3px #50b498 solid;
+    justify-content: center;
 }
 
 /* #map{
@@ -203,17 +205,15 @@ input[type="text"] {
 
 
 .input-container{
+    width: 98vw;
     border: none;
-    border-top-left-radius: 10px;  /* 왼쪽 상단 모서리 둥글게 */
-    border-top-right-radius: 10px;
+    border-radius: 10px;
     overflow: auto;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;/* 아래쪽 공간 추가 */
     width: auto;
-    height: 250px;
-    max-height: 250px;
     border : none;
     box-shadow: 0.5px 0.5px 2px 2px #bdbdbd;
     margin: 30px;
@@ -244,24 +244,43 @@ input[type="text"] {
     margin: 3px;
 }
 
+.menu-container{
+    justify-content: flex-start; /* 왼쪽 정렬 */
+    position: relative; /* 자식 요소에 대한 기준을 설정 */
+    /* float: left; */
+}
 
+.hidden-toggle {
+    display: none; /* 체크박스 숨김 */
+}
 
-div.mid {
-    /* margin-top: -250px; 위쪽 공간 추가 */
-    z-index: 100; /* 다른 div보다 위로 올리기 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50px;
-    background-color: #50b498;
-    width: 250px;
-    max-height: 80px;
+.hamburger {
+    cursor: pointer;
+    font-size: 24px; /* 햄버거 아이콘 크기 */
+    padding: 10px; /* 여백 */
+}
+
+div.mid {/* 다른 div보다 위로 올리기 */
+    display: none;
+    background-color: #dadada;
+    border: 1px solid #5F5F5F;
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    gap: 15px;
+    flex-direction: row;
+    padding: auto;
+    z-index: 1;
     
 }
 
+.hidden-toggle:checked + .hamburger + .mid {
+    display: flex; /* 체크박스가 체크되면 메뉴 표시 */
+}
+
 div.mid button{
-    width: 44px;
-    height: 44px;
+    width: 35px;
+    height: 35px;
     border-radius: 100px;
     margin: 5px;
     font-size: 10px;
@@ -275,9 +294,10 @@ div.mid button{
 }
 
 .mid #kakao-link-btn img{
-    width: 44px;
-    height: 44px;
+    width: 35px;
+    height: 35px;
     border-radius: 200px;
+    margin-top: 5px;
 }
 
 .submit-button{
@@ -310,29 +330,6 @@ div.mid button{
     background: rgb(135, 194, 161);
 }
 
-nav {
-    display: none; /* 기본적으로 숨김 */
-    width: 30px;
-    height: 30px;
-    border-radius: 100px;
-}
-
-nav.visible {
-    display: flex; /* 보여주기 */
-    width: 250px;
-    height: 50px;
-}
-
-nav ul {
-    display: flex; /* 수평 정렬 */
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-nav li {
-    margin-left: 20px; /* 항목 간 간격 */
-}
 
 
 @media (min-width: 768px) {
