@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+}
+
 header {
     font-size: 25px;
     text-align: left;
@@ -8,7 +12,8 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: none;
+    margin: 8px, 8px, 8px, 8px;
+    padding: 12px;
 }
 
 header a{
@@ -27,6 +32,11 @@ text-decoration: unset;
     margin-top: 150px;
 }
 
+hr {
+    width: 150px;
+    border-color:#50b498;
+    margin: 0 auto;
+}
 
 @media (min-width: 768px) {
     #map {

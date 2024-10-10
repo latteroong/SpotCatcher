@@ -205,7 +205,7 @@ function displayMarker(places) {
 // 검색결과 항목을 Element로 반환하는 함수입니다
 function getListItem(index, places) {
     let el = document.createElement('li'),
-    itemStr = '<span class="markerbg marker_' + (index) + '"></span>' +
+    itemStr = '<span class="markerbg marker_' + (index+1) + '"></span>' +
                 '<div class="info">' +
                 '   <h5>' + places.place_name + '</h5>';
 
