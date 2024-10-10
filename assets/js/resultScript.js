@@ -327,16 +327,19 @@ function placesSearchCB (data, status, pagination) {
     } else {
         // 검색결과가 없습니다.
         research = 0;
-        Swal.fire({
-            title: "알림",
-            text: "키워드 " + keyword + " 검색결과가 없습니다.", 
-            icon: "info", //"info,success,warning,error" 중 택1
-            iconColor: '#009900',
-            confirmButtonColor: '#50b498',
-            confirmButtonText: "확인"
-        }).then(() => {
-            history.back();  
-        });
+        if (!Swal.isVisible()) {
+            Swal.fire({
+                title: "알림",
+                text: "키워드 " + keyword + " 검색결과가 없습니다.", 
+                icon: "info", //"info,success,warning,error" 중 택1
+                iconColor: '#009900',
+                confirmButtonColor: '#50b498',
+                confirmButtonText: "확인",
+                closeOnClickOutside : false
+            }).then(() => {
+                history.back();  
+            });
+        }
     }
 }
 
@@ -447,17 +450,19 @@ async function searchLoc() {
                         resolve(); // 검색이 완료되면 resolve
                     } else {
                         // 검색결과가 없습니다.
-                        Swal.fire({
-                            title: "알림",
-                            text: `${i + 1} 번째 주소 검색결과가 없습니다.`,
-                            icon: "info",
-                            iconColor: '#009900',
-                            confirmButtonColor: '#50b498',
-                            confirmButtonText: "확인"
-                        }).then(() => {
-                            history.back();
-                        });
-
+                        if (!Swal.isVisible()) {
+                            Swal.fire({
+                                title: "알림",
+                                text: `${i + 1} 번째 주소 검색결과가 없습니다.`,
+                                icon: "info",
+                                iconColor: '#009900',
+                                confirmButtonColor: '#50b498',
+                                confirmButtonText: "확인",
+                                closeOnClickOutside : false
+                            }).then(() => {
+                                history.back();
+                            });
+                        }
                         reject(new Error(`주소 검색 실패: ${locations[i]}`)); // 실패 시 reject
                     }
                 });
