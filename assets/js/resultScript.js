@@ -86,9 +86,44 @@ function createSubmitButton(containerDiv) {
         const inputBoxValues = document.querySelectorAll('input[name="inputWeight[]"]');
 
         inputBoxValues.forEach((box, index) => {
-            const weightValue = parseInt(box.value);
-            console.log(index, weightValue);
+            let weightValue = 0;
+            if (isNaN(parseInt(box.value))) {
+                Swal.fire({
+                    title: "알림",
+                    text: "알맞은 숫자를 입력해주세요!", 
+                    icon: "info", //"info,success,warning,error" 중 택1
+                    iconColor: '#009900',
+                    confirmButtonColor: '#50b498',
+                    confirmButtonText: "확인"
+                });
+                return false;
+            } else {
+                weightValue = parseInt(box.value);
+                if (weightValue < 1) {
+                    Swal.fire({
+                        title: "알림",
+                        text: "1~10사이의 수를 입력해주세요!", 
+                        icon: "info", //"info,success,warning,error" 중 택1
+                        iconColor: '#009900',
+                        confirmButtonColor: '#50b498',
+                        confirmButtonText: "확인"
+                    });
+                    return false;
+                }
+                if (weightValue > 10) {
+                    Swal.fire({
+                        title: "알림",
+                        text: "1~10사이의 수를 입력해주세요!", 
+                        icon: "info", //"info,success,warning,error" 중 택1
+                        iconColor: '#009900',
+                        confirmButtonColor: '#50b498',
+                        confirmButtonText: "확인"
+                    });
+                    return false;
+                }
+            }
             weight[index] = weightValue;
+            console.log(index, weightValue);
         });
         console.log(weight);
 
