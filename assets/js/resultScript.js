@@ -356,12 +356,13 @@ function placesSearchCBbutton (data, status, pagination) {
 }
 
 
-function getCenter() {
+async function getCenter() {
     console.log("getCenter 시작");
-    const avgPointResult = getAvgPoint(data);
-    center_x = avgPointResult.x;
-    center_y = avgPointResult.y;
-    coords = new kakao.maps.LatLng(center_x, center_y);
+    const avgPointResult = await getAvgPoint(dataset);
+    center_x = await avgPointResult.x;
+    center_y = await avgPointResult.y;
+    console.log("avgPointResult", avgPointResult);
+    coords = await new kakao.maps.LatLng(center_x, center_y);
     console.log("coords", coords);
 
     options = {
@@ -374,62 +375,81 @@ function getCenter() {
     }
 
 async function setMarker(){
-    await searchLoc();
-    await timer(500);
+    try {
+        console.log("Searching location...");
+        await searchLoc(); // 위치 검색 완료
+        console.log("Location search completed.");
 
-    await getCenter();
-    await timer(500);
+        console.log("Getting center...");
+        await getCenter(); // 위치 중심 설정 완료
+        console.log("Center obtained.");
 
-    // 키워드로 장소를 검색합니다
-    await ps.keywordSearch(keyword, placesSearchCB, options);
+        // 키워드로 장소를 검색합니다
+        console.log("Searching places...");
+        await ps.keywordSearch(keyword, placesSearchCB, options);
+        console.log("Places search completed.");
+    } catch (error) {
+        console.error("Error occurred:", error);
+    }
 }
 
 async function searchLoc() {
     for (let i = 0; i < locations.length; i++) {
-        // 주소로 좌표를 검색합니다
-        geocoder.addressSearch(locations[i], function(result, status) {
-            // 정상적으로 검색이 완료됐으면 
-            if (status === kakao.maps.services.Status.OK) {
-                let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-                if (weight[i] == 0) {
-                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), 1));
-                    console.log("0 입니다.");
-                } else {
-                    data.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), parseInt(weight[i])));
-                    console.log(weight, "0 이 아닙니다.", weight[i]);
-                }
-                
-                console.log(data);
-                console.log("===");
-                // 결과값으로 받은 위치를 마커로 표시합니다
-                removeMarker();
+        try {
+            // 주소로 좌표를 검색합니다
+            await new Promise((resolve, reject) => {
+                geocoder.addressSearch(locations[i], function(result, status) {
+                    // 정상적으로 검색이 완료됐으면 
+                    if (status === kakao.maps.services.Status.OK) {
+                        let coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+                        if (weight[i] === 0) {
+                            dataset.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), 1));
+                            console.log("0 입니다.");
+                        } else {
+                            dataset.push(Point(parseFloat(result[0].y), parseFloat(result[0].x), parseInt(weight[i])));
+                            console.log(weight, "0 이 아닙니다.", weight[i]);
+                        }
 
-                let marker = new kakao.maps.Marker({
-                    map: map,
-                    position: coords
-                });
+                        console.log(dataset);
+                        console.log("===");
 
-                bounds.extend(coords);
+                        // 결과값으로 받은 위치를 마커로 표시합니다
+                        removeMarker();
 
-                // 인포윈도우로 장소에 대한 설명을 표시합니다
-                let infowindow = new kakao.maps.InfoWindow({
-                    content: '<div style="width:150px;text-align:center;padding:6px 0;">' + (locName[i]) + '</div>'
+                        let marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+
+                        bounds.extend(coords);
+
+                        // 인포윈도우로 장소에 대한 설명을 표시합니다
+                        let infowindow = new kakao.maps.InfoWindow({
+                            content: '<div style="width:150px;text-align:center;padding:6px 0;">' + locName[i] + '</div>'
+                        });
+                        infowindow.open(map, marker);
+
+                        resolve(); // 검색이 완료되면 resolve
+                    } else {
+                        // 검색결과가 없습니다.
+                        Swal.fire({
+                            title: "알림",
+                            text: `${i + 1} 번째 주소 검색결과가 없습니다.`,
+                            icon: "info",
+                            iconColor: '#009900',
+                            confirmButtonColor: '#50b498',
+                            confirmButtonText: "확인"
+                        }).then(() => {
+                            history.back();
+                        });
+
+                        reject(new Error(`주소 검색 실패: ${locations[i]}`)); // 실패 시 reject
+                    }
                 });
-                infowindow.open(map, marker);
-            } else {
-                // 검색결과가 없습니다.
-                Swal.fire({
-                    title: "알림",
-                    text: `${i+1} 번째 주소 검색결과가 없습니다.`, 
-                    icon: "info", //"info,success,warning,error" 중 택1
-                    iconColor: '#009900',
-                    confirmButtonColor: '#50b498',
-                    confirmButtonText: "확인"
-                }).then(() => {
-                    history.back();
-                });
-            }
-        });
+            });
+        } catch (error) {
+            console.error("Error occurred:", error);
+        }
     }
     console.log("searchLoc 끝");
 }
@@ -453,7 +473,7 @@ const Point = (x,y,w) => ({
     w,
 });
 
-const data = [];
+const dataset = [];
 
 function weightedAverage(v1, w1, v2, w2) {
     if (w1 === 0) return v2;
@@ -471,9 +491,9 @@ function avgPoint(p1, p2) {
     }
 }
 
-function getAvgPoint(arr) {
+async function getAvgPoint(arr) {
     console.log("arr",arr);
-    return arr.reduce(avgPoint, {
+    return await arr.reduce(avgPoint, {
         x: 0,
         y: 0,
         w: 0
