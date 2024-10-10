@@ -93,7 +93,7 @@ function createSubmitButton(containerDiv) {
         console.log(weight);
 
         // 배열 2개 초기화
-        data.length = 0; // 데이터 초기화가 필요한 부분을 정의하세요.
+        dataset.length = 0; // 데이터 초기화가 필요한 부분을 정의하세요.
         await timer(500);
         await setMarker();
     };
