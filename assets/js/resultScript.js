@@ -182,7 +182,7 @@ function displayMarker(places) {
         // 마커에 클릭이벤트를 등록합니다
         (function(marker, place) { // 클로저를 사용하여 현재 'j' 값을 캡처합니다.
             kakao.maps.event.addListener(marker, 'click', function() {
-                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                infowindow.setContent('<div style="width:150px;text-align:center;padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
                 clickId = place.id;
                 clickLocName = place.place_name;
@@ -190,7 +190,7 @@ function displayMarker(places) {
 
             itemEl.onclick =  function () {
                 infowindow.close();
-                infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                infowindow.setContent('<div style="width:150px;text-align:center;padding:5px;font-size:12px;">' + place.place_name + '</div>');
                 infowindow.open(map, marker);
                 clickId = place.id;
                 clickLocName = place.place_name;
@@ -314,7 +314,7 @@ function placesSearchCB (data, status, pagination) {
         research = 0;
         Swal.fire({
             title: "알림",
-            text: "키워드 {{keyword}} 검색결과가 없습니다.", 
+            text: "키워드 " + keyword + " 검색결과가 없습니다.", 
             icon: "info", //"info,success,warning,error" 중 택1
             iconColor: '#009900',
             confirmButtonColor: '#50b498',
