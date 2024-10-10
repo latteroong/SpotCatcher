@@ -229,7 +229,7 @@ table button{
         
     }
     .inputKeyWord input[type = "text"]{
-        width: 750px;
+        width: 705px;
     }
     .location input[type = "text"]{
         width: 600px;
@@ -247,7 +247,7 @@ table button{
 
     }
     .inputKeyWord input[type = "text"]{
-        width: 500px;
+        width: 555px;
         height: 30px;
     }
     .location input[type = "text"]{
@@ -272,7 +272,7 @@ table button{
 
 @media (max-width:600px){
     #locations{
-        width: 450px;
+        width: 540px;
         align-items: center;
         justify-content: center;
         display: grid;
