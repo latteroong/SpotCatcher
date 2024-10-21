@@ -69,7 +69,31 @@ function createInputFields(locations) {
         containerDiv.appendChild(locationDiv);
     });
 
-    createSubmitButton(containerDiv);
+     createSubmitButton(containerDiv);
+
+    // const midDiv = document.createElement('div');
+    // midDiv.className = 'mid';
+    
+    // const directionsButton = document.createElement('button');
+    // directionsButton.textContent = '길찾기';
+    // directionsButton.onclick = directions;
+
+    // const kakaoLink = document.createElement('a');
+    // kakaoLink.id = 'kakao-link-btn';
+    // kakaoLink.href = 'javascript:;';
+    // const kakaoImage = document.createElement('img');
+    // kakaoImage.src = 'https://developers.kakao.com/assets/img/about/logos/kakaotalksharing/kakaotalk_sharing_btn_medium.png';
+    // kakaoImage.alt = '카카오톡 공유 보내기 버튼';
+    
+    // const infoParagraph = document.createElement('p');
+    // infoParagraph.textContent = '길찾기를 통해 경로 확인하고, 친구와 정보를 공유해 보세요!'; // 원하는 내용으로 수정
+    // infoParagraph.style.display = 'inline';
+
+    // kakaoLink.appendChild(kakaoImage);
+    // midDiv.appendChild(directionsButton);
+    // midDiv.appendChild(kakaoLink);
+    // midDiv.appendChild(infoParagraph);
+    // containerDiv.appendChild(midDiv);
 }
 
 function createSubmitButton(containerDiv) {
