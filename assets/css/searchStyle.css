@@ -70,6 +70,12 @@ body .Intro_explain_1 p{
     animation: fadeInUp 0.8s forwards; /* 애니메이션 적용 */
 }
 
+.Intro_explain_1 #goBtn{
+    background: none; 
+    border: none; 
+    padding: 0;
+}
+
 @keyframes fadeInUp {
     to {
         opacity: 1; /* 최종 상태: 불투명 */
