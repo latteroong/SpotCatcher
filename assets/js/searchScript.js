@@ -5,6 +5,10 @@ let width = 500;
 let height = 600;
 let map;
 
+document.getElementById('goBtn').addEventListener('click', function() {
+    document.getElementById('map').scrollIntoView({ behavior: 'smooth' });
+});
+
 
 function searchDetailAddrFromCoords(coords, callback) {
     // 좌표로 법정동 상세 주소 정보를 요청합니다
