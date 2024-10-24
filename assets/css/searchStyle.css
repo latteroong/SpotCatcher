@@ -247,6 +247,9 @@ table button{
     background-color: white; /* 기본 배경색 */
     transition: background-color 0.3s ease; /* 부드러운 전환 */
     cursor: pointer;
+    opacity: 0; /* 초기 상태: 투명 */
+    transform: translateY(20px); /* 아래에서 시작 */
+    animation: fadeInUp 0.8s forwards; /* 애니메이션 적용 */
 }
 
 #submitBtn:active {
@@ -258,6 +261,9 @@ table button{
     background-color: white; /* 기본 배경색 */
     transition: background-color 0.1s ease; /* 부드러운 전환 */
     cursor: pointer;
+    opacity: 0; /* 초기 상태: 투명 */
+    transform: translateY(20px); /* 아래에서 시작 */
+    animation: fadeInUp 0.8s forwards; /* 애니메이션 적용 */
 }
 
 #addLocationBtn:active {
