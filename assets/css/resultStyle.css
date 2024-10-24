@@ -365,6 +365,15 @@ div.mid button{
     font-weight: 700;
     font-style: normal;
 }
+
+#retryRt {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+    font-size: 15px;
+}
+
 @media (min-width: 768px) {
     #map {
         /* width: 100vw; */
